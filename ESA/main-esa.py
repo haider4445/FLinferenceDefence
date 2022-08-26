@@ -26,6 +26,7 @@ import configparser
 import os 
 from pathlib import Path
 from sklearn.model_selection import train_test_split
+import transformation
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -319,6 +320,21 @@ if __name__=='__main__':
         for i in range(pred_set_num):
             sample, label = pred_set.__getitem__(i)
             y_ground_truth = target_model(sample)
+            print('original: ', y_ground_truth)
+            y_ground_truth_new = y_ground_truth.detach().numpy()
+            y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
+            #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
+            transform_matrix = transformation.generateTemplateMatrix(1)
+            pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+            y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+            y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
+            print('transformed: ', y_ground_truth_new)
+
+            y_ground_truth[0] = y_ground_truth_new[0]
+            y_ground_truth[1] = y_ground_truth_new[1]
+
+            print('transformed inplace: ', y_ground_truth)
+
             # if i == 0:
                 # print('sample 0 prediction ground truth: ', y_ground_truth)
                 # print(y_ground_truth)
