@@ -1,0 +1,563 @@
+2022-09-01 23:46:29,054 - CRITICAL - dataset: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\drive_cleaned.csv
+2022-09-01 23:46:29,054 - CRITICAL - number of target features: 24
+2022-09-01 23:46:29,055 - CRITICAL - number of experimental trials: 10
+2022-09-01 23:46:29,055 - CRITICAL - Begin trials
+2022-09-01 23:46:29,055 - CRITICAL - -------------------------------------
+2022-09-01 23:46:29,055 - CRITICAL - Attack trial 1 / 10
+2022-09-01 23:46:32,999 - CRITICAL - Dataset column permutation is: 
+ tensor([16, 13, 17,  4, 21, 37, 46, 39,  1,  6, 38, 33, 25, 43, 47, 23, 15, 19,
+        42,  0,  7,  5,  8, 27, 18, 10, 12,  3, 14, 29, 31, 40, 41, 24, 36, 35,
+        11,  9,  2, 45, 26, 30, 22, 28, 32, 34, 20, 44])
+2022-09-01 23:46:33,025 - INFO - dataset size: 58509
+2022-09-01 23:46:33,025 - INFO - total feature num: 48
+2022-09-01 23:46:33,026 - INFO - class labels: [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]
+2022-09-01 23:46:33,026 - INFO - class num: 11
+2022-09-01 23:46:33,030 - INFO - len(train_loader): 586
+2022-09-01 23:46:33,030 - INFO - len(test_loader): 147
+2022-09-01 23:46:34,602 - INFO - Train Epoch: 1 [37440/37447 (100%)]	Loss: -0.167880
+2022-09-01 23:46:34,703 - INFO - Test set: Average loss: -0.0025, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:35,249 - INFO - Train Epoch: 2 [37440/37447 (100%)]	Loss: -0.174095
+2022-09-01 23:46:35,350 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:35,921 - INFO - Train Epoch: 3 [37440/37447 (100%)]	Loss: -0.154044
+2022-09-01 23:46:36,086 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:37,064 - INFO - Train Epoch: 4 [37440/37447 (100%)]	Loss: -0.153331
+2022-09-01 23:46:37,162 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:37,686 - INFO - Train Epoch: 5 [37440/37447 (100%)]	Loss: -0.169348
+2022-09-01 23:46:37,818 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:38,413 - INFO - Train Epoch: 6 [37440/37447 (100%)]	Loss: -0.125028
+2022-09-01 23:46:38,511 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:39,079 - INFO - Train Epoch: 7 [37440/37447 (100%)]	Loss: -0.157687
+2022-09-01 23:46:39,177 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:39,737 - INFO - Train Epoch: 8 [37440/37447 (100%)]	Loss: -0.168306
+2022-09-01 23:46:39,840 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:40,395 - INFO - Train Epoch: 9 [37440/37447 (100%)]	Loss: -0.159105
+2022-09-01 23:46:40,493 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:41,071 - INFO - Train Epoch: 10 [37440/37447 (100%)]	Loss: -0.079058
+2022-09-01 23:46:41,167 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:41,746 - INFO - Train Epoch: 11 [37440/37447 (100%)]	Loss: -0.182584
+2022-09-01 23:46:41,849 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:42,408 - INFO - Train Epoch: 12 [37440/37447 (100%)]	Loss: -0.197626
+2022-09-01 23:46:42,505 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:43,047 - INFO - Train Epoch: 13 [37440/37447 (100%)]	Loss: -0.129419
+2022-09-01 23:46:43,147 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:43,676 - INFO - Train Epoch: 14 [37440/37447 (100%)]	Loss: -0.146765
+2022-09-01 23:46:43,778 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:44,373 - INFO - Train Epoch: 15 [37440/37447 (100%)]	Loss: -0.143509
+2022-09-01 23:46:44,469 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:45,020 - INFO - Train Epoch: 16 [37440/37447 (100%)]	Loss: -0.251922
+2022-09-01 23:46:45,121 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:45,675 - INFO - Train Epoch: 17 [37440/37447 (100%)]	Loss: -0.141430
+2022-09-01 23:46:45,772 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:46,308 - INFO - Train Epoch: 18 [37440/37447 (100%)]	Loss: -0.214448
+2022-09-01 23:46:46,404 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:46,963 - INFO - Train Epoch: 19 [37440/37447 (100%)]	Loss: -0.221615
+2022-09-01 23:46:47,060 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:47,613 - INFO - Train Epoch: 20 [37440/37447 (100%)]	Loss: -0.157868
+2022-09-01 23:46:47,711 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:48,276 - INFO - Train Epoch: 21 [37440/37447 (100%)]	Loss: -0.102964
+2022-09-01 23:46:48,380 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:48,908 - INFO - Train Epoch: 22 [37440/37447 (100%)]	Loss: -0.194532
+2022-09-01 23:46:49,009 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:49,547 - INFO - Train Epoch: 23 [37440/37447 (100%)]	Loss: -0.223483
+2022-09-01 23:46:49,645 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:50,176 - INFO - Train Epoch: 24 [37440/37447 (100%)]	Loss: -0.205962
+2022-09-01 23:46:50,272 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:50,822 - INFO - Train Epoch: 25 [37440/37447 (100%)]	Loss: -0.103086
+2022-09-01 23:46:50,917 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:51,480 - INFO - Train Epoch: 26 [37440/37447 (100%)]	Loss: -0.181203
+2022-09-01 23:46:51,579 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:52,157 - INFO - Train Epoch: 27 [37440/37447 (100%)]	Loss: -0.167673
+2022-09-01 23:46:52,260 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:52,807 - INFO - Train Epoch: 28 [37440/37447 (100%)]	Loss: -0.155248
+2022-09-01 23:46:52,905 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:53,452 - INFO - Train Epoch: 29 [37440/37447 (100%)]	Loss: -0.115564
+2022-09-01 23:46:53,563 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:54,134 - INFO - Train Epoch: 30 [37440/37447 (100%)]	Loss: -0.179988
+2022-09-01 23:46:54,231 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:54,820 - INFO - Train Epoch: 31 [37440/37447 (100%)]	Loss: -0.195788
+2022-09-01 23:46:54,920 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:55,494 - INFO - Train Epoch: 32 [37440/37447 (100%)]	Loss: -0.103124
+2022-09-01 23:46:55,593 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:56,157 - INFO - Train Epoch: 33 [37440/37447 (100%)]	Loss: -0.140976
+2022-09-01 23:46:56,253 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:56,795 - INFO - Train Epoch: 34 [37440/37447 (100%)]	Loss: -0.142384
+2022-09-01 23:46:56,894 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:57,426 - INFO - Train Epoch: 35 [37440/37447 (100%)]	Loss: -0.164560
+2022-09-01 23:46:57,522 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:58,080 - INFO - Train Epoch: 36 [37440/37447 (100%)]	Loss: -0.142326
+2022-09-01 23:46:58,177 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:58,719 - INFO - Train Epoch: 37 [37440/37447 (100%)]	Loss: -0.125971
+2022-09-01 23:46:58,826 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:46:59,371 - INFO - Train Epoch: 38 [37440/37447 (100%)]	Loss: -0.197000
+2022-09-01 23:46:59,468 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:00,020 - INFO - Train Epoch: 39 [37440/37447 (100%)]	Loss: -0.211366
+2022-09-01 23:47:00,121 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:00,667 - INFO - Train Epoch: 40 [37440/37447 (100%)]	Loss: -0.155052
+2022-09-01 23:47:00,767 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:01,345 - INFO - Train Epoch: 41 [37440/37447 (100%)]	Loss: -0.234233
+2022-09-01 23:47:01,444 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:02,044 - INFO - Train Epoch: 42 [37440/37447 (100%)]	Loss: -0.113724
+2022-09-01 23:47:02,144 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:02,687 - INFO - Train Epoch: 43 [37440/37447 (100%)]	Loss: -0.128544
+2022-09-01 23:47:02,783 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:03,361 - INFO - Train Epoch: 44 [37440/37447 (100%)]	Loss: -0.185587
+2022-09-01 23:47:03,459 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:04,038 - INFO - Train Epoch: 45 [37440/37447 (100%)]	Loss: -0.138887
+2022-09-01 23:47:04,139 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:04,677 - INFO - Train Epoch: 46 [37440/37447 (100%)]	Loss: -0.195668
+2022-09-01 23:47:04,777 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:05,317 - INFO - Train Epoch: 47 [37440/37447 (100%)]	Loss: -0.126462
+2022-09-01 23:47:05,413 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:05,952 - INFO - Train Epoch: 48 [37440/37447 (100%)]	Loss: -0.159323
+2022-09-01 23:47:06,052 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:06,646 - INFO - Train Epoch: 49 [37440/37447 (100%)]	Loss: -0.194648
+2022-09-01 23:47:06,749 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:07,372 - INFO - Train Epoch: 50 [37440/37447 (100%)]	Loss: -0.156058
+2022-09-01 23:47:07,471 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+
+2022-09-01 23:47:11,857 - INFO - current index is: 1000
+2022-09-01 23:47:11,857 - INFO - current attack mse is: nan
+2022-09-01 23:47:11,857 - INFO - current random mse is: 0.123262
+2022-09-01 23:47:16,234 - INFO - current index is: 2000
+2022-09-01 23:47:16,234 - INFO - current attack mse is: nan
+2022-09-01 23:47:16,234 - INFO - current random mse is: 0.123570
+2022-09-01 23:47:20,518 - INFO - current index is: 3000
+2022-09-01 23:47:20,518 - INFO - current attack mse is: nan
+2022-09-01 23:47:20,518 - INFO - current random mse is: 0.123518
+2022-09-01 23:47:24,854 - INFO - current index is: 4000
+2022-09-01 23:47:24,854 - INFO - current attack mse is: nan
+2022-09-01 23:47:24,854 - INFO - current random mse is: 0.123501
+2022-09-01 23:47:29,236 - INFO - current index is: 5000
+2022-09-01 23:47:29,236 - INFO - current attack mse is: nan
+2022-09-01 23:47:29,237 - INFO - current random mse is: 0.123724
+2022-09-01 23:47:33,541 - INFO - current index is: 6000
+2022-09-01 23:47:33,541 - INFO - current attack mse is: nan
+2022-09-01 23:47:33,541 - INFO - current random mse is: 0.123980
+2022-09-01 23:47:37,900 - INFO - current index is: 7000
+2022-09-01 23:47:37,900 - INFO - current attack mse is: nan
+2022-09-01 23:47:37,900 - INFO - current random mse is: 0.123951
+2022-09-01 23:47:42,243 - INFO - current index is: 8000
+2022-09-01 23:47:42,243 - INFO - current attack mse is: nan
+2022-09-01 23:47:42,243 - INFO - current random mse is: 0.124008
+2022-09-01 23:47:46,577 - INFO - current index is: 9000
+2022-09-01 23:47:46,577 - INFO - current attack mse is: nan
+2022-09-01 23:47:46,577 - INFO - current random mse is: 0.124120
+2022-09-01 23:47:50,819 - INFO - current index is: 10000
+2022-09-01 23:47:50,819 - INFO - current attack mse is: nan
+2022-09-01 23:47:50,819 - INFO - current random mse is: 0.124158
+2022-09-01 23:47:55,098 - INFO - current index is: 11000
+2022-09-01 23:47:55,098 - INFO - current attack mse is: nan
+2022-09-01 23:47:55,098 - INFO - current random mse is: 0.124348
+2022-09-01 23:47:58,211 - CRITICAL - average attack mse: nan
+2022-09-01 23:47:58,211 - CRITICAL - average random mse: 0.124346
+2022-09-01 23:47:58,212 - CRITICAL - -------------------------------------
+2022-09-01 23:47:58,212 - CRITICAL - Attack trial 2 / 10
+2022-09-01 23:48:02,103 - CRITICAL - Dataset column permutation is: 
+ tensor([14, 41, 17, 37, 46,  6, 24, 10, 43, 34, 18,  7, 33, 42, 29, 21, 12, 40,
+        31, 39, 30, 32,  2, 25, 27, 45, 44, 26, 47, 36,  8, 13,  5, 16, 23,  0,
+        28, 38, 11, 15,  1,  4,  3, 35,  9, 20, 19, 22])
+2022-09-01 23:48:02,130 - INFO - dataset size: 58509
+2022-09-01 23:48:02,130 - INFO - total feature num: 48
+2022-09-01 23:48:02,131 - INFO - class labels: [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]
+2022-09-01 23:48:02,131 - INFO - class num: 11
+2022-09-01 23:48:02,132 - INFO - len(train_loader): 586
+2022-09-01 23:48:02,132 - INFO - len(test_loader): 147
+2022-09-01 23:48:02,705 - INFO - Train Epoch: 1 [37440/37447 (100%)]	Loss: -0.179209
+2022-09-01 23:48:02,805 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:03,349 - INFO - Train Epoch: 2 [37440/37447 (100%)]	Loss: -0.191025
+2022-09-01 23:48:03,451 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:04,031 - INFO - Train Epoch: 3 [37440/37447 (100%)]	Loss: -0.176513
+2022-09-01 23:48:04,129 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:04,692 - INFO - Train Epoch: 4 [37440/37447 (100%)]	Loss: -0.125888
+2022-09-01 23:48:04,792 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:05,363 - INFO - Train Epoch: 5 [37440/37447 (100%)]	Loss: -0.136309
+2022-09-01 23:48:05,511 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:06,097 - INFO - Train Epoch: 6 [37440/37447 (100%)]	Loss: -0.124924
+2022-09-01 23:48:06,198 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:06,781 - INFO - Train Epoch: 7 [37440/37447 (100%)]	Loss: -0.164128
+2022-09-01 23:48:06,930 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:07,521 - INFO - Train Epoch: 8 [37440/37447 (100%)]	Loss: -0.190049
+2022-09-01 23:48:07,622 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:08,198 - INFO - Train Epoch: 9 [37440/37447 (100%)]	Loss: -0.141945
+2022-09-01 23:48:08,298 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:08,867 - INFO - Train Epoch: 10 [37440/37447 (100%)]	Loss: -0.178550
+2022-09-01 23:48:08,966 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:09,547 - INFO - Train Epoch: 11 [37440/37447 (100%)]	Loss: -0.177566
+2022-09-01 23:48:09,647 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:10,199 - INFO - Train Epoch: 12 [37440/37447 (100%)]	Loss: -0.139970
+2022-09-01 23:48:10,302 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:10,847 - INFO - Train Epoch: 13 [37440/37447 (100%)]	Loss: -0.136885
+2022-09-01 23:48:10,947 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:11,531 - INFO - Train Epoch: 14 [37440/37447 (100%)]	Loss: -0.211828
+2022-09-01 23:48:11,631 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:12,174 - INFO - Train Epoch: 15 [37440/37447 (100%)]	Loss: -0.140467
+2022-09-01 23:48:12,272 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:12,811 - INFO - Train Epoch: 16 [37440/37447 (100%)]	Loss: -0.231646
+2022-09-01 23:48:12,912 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:13,459 - INFO - Train Epoch: 17 [37440/37447 (100%)]	Loss: -0.154814
+2022-09-01 23:48:13,555 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:14,094 - INFO - Train Epoch: 18 [37440/37447 (100%)]	Loss: -0.142176
+2022-09-01 23:48:14,192 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:14,753 - INFO - Train Epoch: 19 [37440/37447 (100%)]	Loss: -0.254375
+2022-09-01 23:48:14,852 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:15,394 - INFO - Train Epoch: 20 [37440/37447 (100%)]	Loss: -0.191184
+2022-09-01 23:48:15,492 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:16,031 - INFO - Train Epoch: 21 [37440/37447 (100%)]	Loss: -0.165079
+2022-09-01 23:48:16,132 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:16,759 - INFO - Train Epoch: 22 [37440/37447 (100%)]	Loss: -0.205619
+2022-09-01 23:48:16,861 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:17,450 - INFO - Train Epoch: 23 [37440/37447 (100%)]	Loss: -0.088066
+2022-09-01 23:48:17,547 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:18,096 - INFO - Train Epoch: 24 [37440/37447 (100%)]	Loss: -0.125969
+2022-09-01 23:48:18,195 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:18,746 - INFO - Train Epoch: 25 [37440/37447 (100%)]	Loss: -0.114961
+2022-09-01 23:48:18,844 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:19,428 - INFO - Train Epoch: 26 [37440/37447 (100%)]	Loss: -0.096833
+2022-09-01 23:48:19,529 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:20,067 - INFO - Train Epoch: 27 [37440/37447 (100%)]	Loss: -0.139597
+2022-09-01 23:48:20,167 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:20,761 - INFO - Train Epoch: 28 [37440/37447 (100%)]	Loss: -0.147975
+2022-09-01 23:48:20,862 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:21,438 - INFO - Train Epoch: 29 [37440/37447 (100%)]	Loss: -0.208710
+2022-09-01 23:48:21,537 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:22,087 - INFO - Train Epoch: 30 [37440/37447 (100%)]	Loss: -0.165582
+2022-09-01 23:48:22,186 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:22,738 - INFO - Train Epoch: 31 [37440/37447 (100%)]	Loss: -0.205054
+2022-09-01 23:48:22,837 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:23,395 - INFO - Train Epoch: 32 [37440/37447 (100%)]	Loss: -0.168092
+2022-09-01 23:48:23,507 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:24,110 - INFO - Train Epoch: 33 [37440/37447 (100%)]	Loss: -0.149775
+2022-09-01 23:48:24,207 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:24,780 - INFO - Train Epoch: 34 [37440/37447 (100%)]	Loss: -0.196616
+2022-09-01 23:48:24,878 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:25,426 - INFO - Train Epoch: 35 [37440/37447 (100%)]	Loss: -0.072571
+2022-09-01 23:48:25,523 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:26,079 - INFO - Train Epoch: 36 [37440/37447 (100%)]	Loss: -0.142867
+2022-09-01 23:48:26,174 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:26,743 - INFO - Train Epoch: 37 [37440/37447 (100%)]	Loss: -0.200045
+2022-09-01 23:48:26,841 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:27,391 - INFO - Train Epoch: 38 [37440/37447 (100%)]	Loss: -0.130322
+2022-09-01 23:48:27,487 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:28,088 - INFO - Train Epoch: 39 [37440/37447 (100%)]	Loss: -0.140955
+2022-09-01 23:48:28,183 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:28,732 - INFO - Train Epoch: 40 [37440/37447 (100%)]	Loss: -0.177465
+2022-09-01 23:48:28,834 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:29,396 - INFO - Train Epoch: 41 [37440/37447 (100%)]	Loss: -0.103836
+2022-09-01 23:48:29,498 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:30,049 - INFO - Train Epoch: 42 [37440/37447 (100%)]	Loss: -0.152544
+2022-09-01 23:48:30,144 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:30,751 - INFO - Train Epoch: 43 [37440/37447 (100%)]	Loss: -0.163379
+2022-09-01 23:48:30,854 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:31,436 - INFO - Train Epoch: 44 [37440/37447 (100%)]	Loss: -0.220450
+2022-09-01 23:48:31,532 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:32,098 - INFO - Train Epoch: 45 [37440/37447 (100%)]	Loss: -0.182792
+2022-09-01 23:48:32,198 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:32,730 - INFO - Train Epoch: 46 [37440/37447 (100%)]	Loss: -0.176108
+2022-09-01 23:48:32,828 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:33,377 - INFO - Train Epoch: 47 [37440/37447 (100%)]	Loss: -0.074400
+2022-09-01 23:48:33,473 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:34,011 - INFO - Train Epoch: 48 [37440/37447 (100%)]	Loss: -0.127408
+2022-09-01 23:48:34,109 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:34,721 - INFO - Train Epoch: 49 [37440/37447 (100%)]	Loss: -0.193714
+2022-09-01 23:48:34,824 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:35,371 - INFO - Train Epoch: 50 [37440/37447 (100%)]	Loss: -0.154749
+2022-09-01 23:48:35,472 - INFO - Test set: Average loss: -0.0025, Accuracy: 1698/9361 (18%)
+
+2022-09-01 23:48:39,878 - INFO - current index is: 1000
+2022-09-01 23:48:39,878 - INFO - current attack mse is: nan
+2022-09-01 23:48:39,878 - INFO - current random mse is: 0.142827
+2022-09-01 23:48:44,122 - INFO - current index is: 2000
+2022-09-01 23:48:44,123 - INFO - current attack mse is: nan
+2022-09-01 23:48:44,123 - INFO - current random mse is: 0.141856
+2022-09-01 23:48:48,364 - INFO - current index is: 3000
+2022-09-01 23:48:48,364 - INFO - current attack mse is: nan
+2022-09-01 23:48:48,364 - INFO - current random mse is: 0.141865
+2022-09-01 23:48:52,629 - INFO - current index is: 4000
+2022-09-01 23:48:52,629 - INFO - current attack mse is: nan
+2022-09-01 23:48:52,629 - INFO - current random mse is: 0.142028
+2022-09-01 23:48:56,856 - INFO - current index is: 5000
+2022-09-01 23:48:56,856 - INFO - current attack mse is: nan
+2022-09-01 23:48:56,857 - INFO - current random mse is: 0.141527
+2022-09-01 23:49:01,187 - INFO - current index is: 6000
+2022-09-01 23:49:01,188 - INFO - current attack mse is: nan
+2022-09-01 23:49:01,188 - INFO - current random mse is: 0.141498
+2022-09-01 23:49:05,505 - INFO - current index is: 7000
+2022-09-01 23:49:05,505 - INFO - current attack mse is: nan
+2022-09-01 23:49:05,505 - INFO - current random mse is: 0.141650
+2022-09-01 23:49:09,858 - INFO - current index is: 8000
+2022-09-01 23:49:09,858 - INFO - current attack mse is: nan
+2022-09-01 23:49:09,858 - INFO - current random mse is: 0.141685
+2022-09-01 23:49:14,111 - INFO - current index is: 9000
+2022-09-01 23:49:14,111 - INFO - current attack mse is: nan
+2022-09-01 23:49:14,112 - INFO - current random mse is: 0.141597
+2022-09-01 23:49:18,305 - INFO - current index is: 10000
+2022-09-01 23:49:18,305 - INFO - current attack mse is: nan
+2022-09-01 23:49:18,305 - INFO - current random mse is: 0.141600
+2022-09-01 23:49:22,658 - INFO - current index is: 11000
+2022-09-01 23:49:22,658 - INFO - current attack mse is: nan
+2022-09-01 23:49:22,659 - INFO - current random mse is: 0.141576
+2022-09-01 23:49:25,680 - CRITICAL - average attack mse: nan
+2022-09-01 23:49:25,680 - CRITICAL - average random mse: 0.141539
+2022-09-01 23:49:25,681 - CRITICAL - -------------------------------------
+2022-09-01 23:49:25,682 - CRITICAL - Attack trial 3 / 10
+2022-09-01 23:49:29,637 - CRITICAL - Dataset column permutation is: 
+ tensor([ 9, 29, 46, 47, 43,  2, 39, 19, 37, 36,  3,  4, 11,  6, 16, 15, 35, 28,
+        38,  8, 42, 44, 23,  1, 30,  7, 25, 14, 13, 10, 12, 40, 18,  5, 26, 27,
+        33, 41, 20, 17, 22, 24,  0, 31, 32, 34, 45, 21])
+2022-09-01 23:49:29,662 - INFO - dataset size: 58509
+2022-09-01 23:49:29,662 - INFO - total feature num: 48
+2022-09-01 23:49:29,663 - INFO - class labels: [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]
+2022-09-01 23:49:29,663 - INFO - class num: 11
+2022-09-01 23:49:29,671 - INFO - len(train_loader): 586
+2022-09-01 23:49:29,671 - INFO - len(test_loader): 147
+2022-09-01 23:49:30,233 - INFO - Train Epoch: 1 [37440/37447 (100%)]	Loss: -0.158493
+2022-09-01 23:49:30,334 - INFO - Test set: Average loss: -0.0025, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:30,880 - INFO - Train Epoch: 2 [37440/37447 (100%)]	Loss: -0.090956
+2022-09-01 23:49:30,985 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:31,573 - INFO - Train Epoch: 3 [37440/37447 (100%)]	Loss: -0.180514
+2022-09-01 23:49:31,673 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:32,237 - INFO - Train Epoch: 4 [37440/37447 (100%)]	Loss: -0.227134
+2022-09-01 23:49:32,336 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:32,865 - INFO - Train Epoch: 5 [37440/37447 (100%)]	Loss: -0.178877
+2022-09-01 23:49:32,964 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:33,526 - INFO - Train Epoch: 6 [37440/37447 (100%)]	Loss: -0.114454
+2022-09-01 23:49:33,624 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:34,183 - INFO - Train Epoch: 7 [37440/37447 (100%)]	Loss: -0.124935
+2022-09-01 23:49:34,288 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:34,831 - INFO - Train Epoch: 8 [37440/37447 (100%)]	Loss: -0.176933
+2022-09-01 23:49:34,932 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:35,497 - INFO - Train Epoch: 9 [37440/37447 (100%)]	Loss: -0.101185
+2022-09-01 23:49:35,600 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:36,140 - INFO - Train Epoch: 10 [37440/37447 (100%)]	Loss: -0.204191
+2022-09-01 23:49:36,238 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:36,840 - INFO - Train Epoch: 11 [37440/37447 (100%)]	Loss: -0.242404
+2022-09-01 23:49:36,938 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:37,542 - INFO - Train Epoch: 12 [37440/37447 (100%)]	Loss: -0.115900
+2022-09-01 23:49:37,639 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:38,185 - INFO - Train Epoch: 13 [37440/37447 (100%)]	Loss: -0.106972
+2022-09-01 23:49:38,283 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:38,855 - INFO - Train Epoch: 14 [37440/37447 (100%)]	Loss: -0.140358
+2022-09-01 23:49:38,961 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:39,509 - INFO - Train Epoch: 15 [37440/37447 (100%)]	Loss: -0.155315
+2022-09-01 23:49:39,614 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:40,196 - INFO - Train Epoch: 16 [37440/37447 (100%)]	Loss: -0.202301
+2022-09-01 23:49:40,296 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:40,840 - INFO - Train Epoch: 17 [37440/37447 (100%)]	Loss: -0.140769
+2022-09-01 23:49:40,942 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:41,572 - INFO - Train Epoch: 18 [37440/37447 (100%)]	Loss: -0.147129
+2022-09-01 23:49:41,677 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:42,259 - INFO - Train Epoch: 19 [37440/37447 (100%)]	Loss: -0.156269
+2022-09-01 23:49:42,357 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:42,928 - INFO - Train Epoch: 20 [37440/37447 (100%)]	Loss: -0.155590
+2022-09-01 23:49:43,030 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:43,584 - INFO - Train Epoch: 21 [37440/37447 (100%)]	Loss: -0.154949
+2022-09-01 23:49:43,736 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:44,310 - INFO - Train Epoch: 22 [37440/37447 (100%)]	Loss: -0.179597
+2022-09-01 23:49:44,414 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:44,961 - INFO - Train Epoch: 23 [37440/37447 (100%)]	Loss: -0.126006
+2022-09-01 23:49:45,063 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:45,596 - INFO - Train Epoch: 24 [37440/37447 (100%)]	Loss: -0.092650
+2022-09-01 23:49:45,694 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:46,236 - INFO - Train Epoch: 25 [37440/37447 (100%)]	Loss: -0.143390
+2022-09-01 23:49:46,334 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:46,882 - INFO - Train Epoch: 26 [37440/37447 (100%)]	Loss: -0.121497
+2022-09-01 23:49:46,985 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:47,584 - INFO - Train Epoch: 27 [37440/37447 (100%)]	Loss: -0.129009
+2022-09-01 23:49:47,684 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:48,223 - INFO - Train Epoch: 28 [37440/37447 (100%)]	Loss: -0.134038
+2022-09-01 23:49:48,319 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:48,871 - INFO - Train Epoch: 29 [37440/37447 (100%)]	Loss: -0.100237
+2022-09-01 23:49:48,971 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:49,525 - INFO - Train Epoch: 30 [37440/37447 (100%)]	Loss: -0.145226
+2022-09-01 23:49:49,628 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:50,174 - INFO - Train Epoch: 31 [37440/37447 (100%)]	Loss: -0.157525
+2022-09-01 23:49:50,271 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:50,820 - INFO - Train Epoch: 32 [37440/37447 (100%)]	Loss: -0.202602
+2022-09-01 23:49:50,918 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:51,501 - INFO - Train Epoch: 33 [37440/37447 (100%)]	Loss: -0.129397
+2022-09-01 23:49:51,597 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:52,167 - INFO - Train Epoch: 34 [37440/37447 (100%)]	Loss: -0.116136
+2022-09-01 23:49:52,270 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:52,816 - INFO - Train Epoch: 35 [37440/37447 (100%)]	Loss: -0.161496
+2022-09-01 23:49:52,915 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:53,505 - INFO - Train Epoch: 36 [37440/37447 (100%)]	Loss: -0.213776
+2022-09-01 23:49:53,604 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:54,163 - INFO - Train Epoch: 37 [37440/37447 (100%)]	Loss: -0.143576
+2022-09-01 23:49:54,264 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:54,840 - INFO - Train Epoch: 38 [37440/37447 (100%)]	Loss: -0.182861
+2022-09-01 23:49:54,943 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:55,542 - INFO - Train Epoch: 39 [37440/37447 (100%)]	Loss: -0.176532
+2022-09-01 23:49:55,636 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:56,195 - INFO - Train Epoch: 40 [37440/37447 (100%)]	Loss: -0.190221
+2022-09-01 23:49:56,292 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:56,864 - INFO - Train Epoch: 41 [37440/37447 (100%)]	Loss: -0.204044
+2022-09-01 23:49:56,965 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:57,569 - INFO - Train Epoch: 42 [37440/37447 (100%)]	Loss: -0.244866
+2022-09-01 23:49:57,671 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:58,269 - INFO - Train Epoch: 43 [37440/37447 (100%)]	Loss: -0.099435
+2022-09-01 23:49:58,367 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:58,915 - INFO - Train Epoch: 44 [37440/37447 (100%)]	Loss: -0.192769
+2022-09-01 23:49:59,014 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:49:59,549 - INFO - Train Epoch: 45 [37440/37447 (100%)]	Loss: -0.135177
+2022-09-01 23:49:59,651 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:00,191 - INFO - Train Epoch: 46 [37440/37447 (100%)]	Loss: -0.142451
+2022-09-01 23:50:00,291 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:00,874 - INFO - Train Epoch: 47 [37440/37447 (100%)]	Loss: -0.223675
+2022-09-01 23:50:00,973 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:01,554 - INFO - Train Epoch: 48 [37440/37447 (100%)]	Loss: -0.169622
+2022-09-01 23:50:01,653 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:02,186 - INFO - Train Epoch: 49 [37440/37447 (100%)]	Loss: -0.112970
+2022-09-01 23:50:02,284 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:02,807 - INFO - Train Epoch: 50 [37440/37447 (100%)]	Loss: -0.179060
+2022-09-01 23:50:02,905 - INFO - Test set: Average loss: -0.0026, Accuracy: 1713/9361 (18%)
+
+2022-09-01 23:50:07,340 - INFO - current index is: 1000
+2022-09-01 23:50:07,340 - INFO - current attack mse is: nan
+2022-09-01 23:50:07,340 - INFO - current random mse is: 0.132333

@@ -1,0 +1,22 @@
+2022-09-02 00:01:46,047 - CRITICAL - dataset: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\drive_cleaned.csv
+2022-09-02 00:01:46,049 - CRITICAL - number of target features: 24
+2022-09-02 00:01:46,049 - CRITICAL - number of experimental trials: 10
+2022-09-02 00:01:46,049 - CRITICAL - Begin trials
+2022-09-02 00:01:46,049 - CRITICAL - -------------------------------------
+2022-09-02 00:01:46,050 - CRITICAL - Attack trial 1 / 10
+2022-09-02 00:01:50,446 - CRITICAL - Dataset column permutation is: 
+ tensor([16, 13, 17,  4, 21, 37, 46, 39,  1,  6, 38, 33, 25, 43, 47, 23, 15, 19,
+        42,  0,  7,  5,  8, 27, 18, 10, 12,  3, 14, 29, 31, 40, 41, 24, 36, 35,
+        11,  9,  2, 45, 26, 30, 22, 28, 32, 34, 20, 44])
+2022-09-02 00:01:50,478 - INFO - dataset size: 58509
+2022-09-02 00:01:50,478 - INFO - total feature num: 48
+2022-09-02 00:01:50,479 - INFO - class labels: [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]
+2022-09-02 00:01:50,479 - INFO - class num: 11
+2022-09-02 00:01:50,482 - INFO - len(train_loader): 586
+2022-09-02 00:01:50,482 - INFO - len(test_loader): 147
+2022-09-02 00:01:52,057 - INFO - Train Epoch: 1 [37440/37447 (100%)]	Loss: -0.167880
+2022-09-02 00:01:52,158 - INFO - Test set: Average loss: -0.0025, Accuracy: 1725/9361 (18%)
+
+2022-09-02 00:01:52,730 - INFO - Train Epoch: 2 [37440/37447 (100%)]	Loss: -0.174095
+2022-09-02 00:01:52,839 - INFO - Test set: Average loss: -0.0026, Accuracy: 1725/9361 (18%)
+

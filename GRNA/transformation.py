@@ -9,6 +9,21 @@ def generateTemplateMatrix(k):
 
 	return matrix
 
+def perturbedMatrix(matrix, pert):
+
+	row_indices = [i for i in range(len(matrix))]
+	for i in range(len(matrix)):
+		randrow = random.choice(row_indices)
+		matrix[randrow][i] -= 2**(pert)
+		row_indices.remove(randrow)
+
+		for j in row_indices:
+			matrix[j][i] += 2**(pert)/(len(matrix))
+
+	return matrix
+
+
+
 def generateDerivedTemplateMatrix(k):
 
 	zero_padding = np.zeros((k,k))
@@ -56,4 +71,24 @@ def generateDerivedTemplateMatrix(k):
 
 	return randomized_derived_matrix
 
-print(generateDerivedTemplateMatrix(5))
+
+r = np.array([[5.1, 3.5, 1.4, 0.2], [4.9, 3.0, 1.4, 0.2]])
+
+r = np.array([0.9853, 0.0147])
+r = np.reshape(r, (-1, 1))
+
+matrix = generateTemplateMatrix(1)
+resultant2 = np.dot(r,matrix)
+pert_matrix = perturbedMatrix(matrix, -4)
+resultant = np.dot(r,pert_matrix)
+
+print(np.linalg.norm(r[1]-r[0]))
+print(np.linalg.norm(resultant[1]-resultant[0]))
+print(np.linalg.norm(resultant2[1]-resultant2[0]))
+
+
+# print(np.corrcoef(r[1], r[0]))
+# print(np.corrcoef(resultant[1], resultant[0]))
+# print(np.corrcoef(resultant2[1], resultant2[0]))
+
+print(resultant)

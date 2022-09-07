@@ -22,6 +22,7 @@ from datetime import datetime
 
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF
 from models.AttackModels import Generator, FakeRandomForest
+import transformation
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -376,6 +377,28 @@ class GeneratorTrainer():
                 fake_input2netG = torch.randn(x.size(0), n_attacker + n_victim)
              
             yhat = netG(fake_input2netG)
+            print(yhat)
+
+            defense_bool = 1
+            if defense_bool == 1:
+                y_ground_truth_new = yhat.cpu().detach().numpy()
+                #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
+                #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
+                transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
+                pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+                y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
+                #print('transformed: ', y_ground_truth_new)
+                old_y_ground_truth = yhat
+                print('old: ', old_y_ground_truth)
+
+                yhat = torch.from_numpy(y_ground_truth_new).float().to(device)
+                #for ind in range(len(yhat)):
+                    #yhat[ind] = round(y_ground_truth_new[ind], 2)
+                    #yhat[ind] = y_ground_truth_new[ind]
+                print('new: ', yhat)
+
+
 
             if enableMean:
                 randomguess = mean_feature[n_attacker:].repeat(x.size(0), 1)

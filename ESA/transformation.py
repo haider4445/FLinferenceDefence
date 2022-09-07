@@ -77,15 +77,24 @@ r = np.array([[5.1, 3.5, 1.4, 0.2], [4.9, 3.0, 1.4, 0.2]])
 r = np.array([0.9853, 0.0147])
 r = np.reshape(r, (-1, 1))
 
-matrix = generateTemplateMatrix(1)
+r = np.array([5.1, 3.5, 1.4, 0.2, 0.3, 0.1, 0.5, 0.9, 1.2, 1.5])
+
+
+matrix = generateTemplateMatrix(10)
 resultant2 = np.dot(r,matrix)
 pert_matrix = perturbedMatrix(matrix, -4)
 resultant = np.dot(r,pert_matrix)
 
-print(np.linalg.norm(r[1]-r[0]))
-print(np.linalg.norm(resultant[1]-resultant[0]))
-print(np.linalg.norm(resultant2[1]-resultant2[0]))
+# print(np.linalg.norm(r[1]-r[0]))
+# print(np.linalg.norm(resultant[1]-resultant[0]))
+# print(np.linalg.norm(resultant2[1]-resultant2[0]))
 
+
+print(np.linalg.norm(r))
+print(np.linalg.norm(resultant))
+print(np.linalg.norm(resultant2))
+
+print(resultant)
 
 # print(np.corrcoef(r[1], r[0]))
 # print(np.corrcoef(resultant[1], resultant[0]))

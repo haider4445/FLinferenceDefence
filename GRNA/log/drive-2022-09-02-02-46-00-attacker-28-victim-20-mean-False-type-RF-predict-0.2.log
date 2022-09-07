@@ -1,0 +1,188 @@
+2022-09-02 02:46:00,561 - CRITICAL - 
+
+
+<<<<<<<-------------------------------NumOfFeaturesToRecover: 20------------------------------->>>>>>>
+2022-09-02 02:46:00,562 - CRITICAL - Running on device: cuda:0
+2022-09-02 02:46:00,564 - CRITICAL - Writing log to file: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\GRNA\log\drive-2022-09-02-02-46-00-attacker-28-victim-20-mean-False-type-RF-predict-0.2.log
+2022-09-02 02:46:00,564 - CRITICAL - n_attacker = 28, n_victim = 20
+2022-09-02 02:46:00,565 - INFO - # By default, section names are case sensitive but keys are not
+# Config parsers do not guess datatypes of values in configuration files, always storing them internally as strings. 
+
+[DEFAULT]
+DataFile = drive_cleaned.csv
+LogFile = drive.log
+NumOfFeaturesOwnedByAttacker = 28
+NumOfFeaturesToRecover = 20
+RunningTimes = 10
+
+[DATASET]
+TrainPortion = 0.6
+TestPortion = 0.2
+PredictPortion = 0.2
+
+[DEFENCE]
+EnableConfidenceRounding = False
+RoundingPrecision = 1
+
+[GENERATOR]
+Epochs = 60
+EnableAttackerFeatures = True  
+EnableKnownMeanConstraint = False         
+KnownMeanLambda = 1.2
+UnknownVarLambda = 0.25
+
+# modeltype should be one of (LR, NN, RF)
+[CLASSIFIER]
+ModeType = RF
+# MUST SET: should be 2 for LR 
+ClassNum = 11
+Epochs = 60      
+
+    
+
+2022-09-02 02:46:00,565 - CRITICAL - 
+
+<----------------- Running count: 1 / 10 ----------------->
+
+
+2022-09-02 02:46:03,449 - CRITICAL - Dataset column permutation is: 
+ tensor([ 7, 31, 27, 47, 24,  2, 36, 25, 11,  9,  5, 12, 21,  3, 23, 38, 42, 45,
+        37, 34, 39,  0,  4, 40, 41,  6, 20, 14, 17, 30, 35, 28, 19, 26, 32, 22,
+        33, 46, 44, 15,  8, 10, 13, 29, 18,  1, 16, 43])
+2022-09-02 02:46:03,465 - CRITICAL - Creating dataset, len(samples): 58509; positive labels sum: 53190
+2022-09-02 02:46:03,479 - CRITICAL - For dataset C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\drive_cleaned.csv, dataset length: 58509
+2022-09-02 02:46:03,480 - CRITICAL - 
+[FUNCTION]: Splitting dataset by getSplittedDataset()......
+2022-09-02 02:46:03,480 - INFO - Display first (x, y) pair of dataset:
+ tensor([8.1753e-01, 3.6554e-01, 3.9434e-01, 1.1781e-01, 3.5851e-01, 7.2105e-01,
+        6.0996e-05, 5.0865e-01, 3.2505e-01, 3.2505e-01, 7.7792e-01, 1.3157e-04,
+        6.2360e-02, 8.9780e-01, 6.2405e-02, 2.0749e-02, 4.3299e-01, 1.1835e-01,
+        1.5917e-02, 6.3140e-01, 7.3337e-05, 7.0346e-01, 9.1003e-01, 3.9992e-03,
+        5.1032e-02, 8.2103e-01, 6.2769e-02, 2.3714e-03, 4.7071e-03, 3.5808e-01,
+        6.3767e-01, 5.2852e-01, 6.2719e-02, 4.1320e-01, 3.6990e-01, 6.2368e-02,
+        6.2594e-01, 1.2688e-01, 4.0469e-01, 1.1571e-04, 8.1294e-01, 3.2502e-01,
+        8.5679e-04, 5.0881e-01, 6.2715e-02, 5.4556e-01, 9.0313e-04, 4.2939e-01]), tensor(0.)
+2022-09-02 02:46:03,481 - INFO - Shape of (x, y): torch.Size([48]) torch.Size([])
+2022-09-02 02:46:03,484 - CRITICAL - len(trainset): 35105
+2022-09-02 02:46:03,488 - CRITICAL - len(testset): 11701
+2022-09-02 02:46:03,488 - CRITICAL - len(predictset): 11703
+2022-09-02 02:46:03,489 - INFO - len(trainloader): 549
+2022-09-02 02:46:03,489 - INFO - len(testloader): 183
+2022-09-02 02:46:03,489 - INFO - len(predictloader): 183
+2022-09-02 02:46:03,489 - CRITICAL - 
+[FUNCTION]: Creating GlobalClassifierTrainer......
+2022-09-02 02:46:03,489 - CRITICAL - Creating a model for type RF
+2022-09-02 02:46:03,490 - CRITICAL - Creating RandomForest, with n_estimators=100, max_depth=3
+2022-09-02 02:46:04,198 - INFO - Structure of Fake Random Forest: FakeRandomForest(
+  (dense): Sequential(
+    (0): Linear(in_features=48, out_features=2000, bias=True)
+    (1): Dropout(p=0.5, inplace=False)
+    (2): ReLU()
+    (3): Linear(in_features=2000, out_features=200, bias=True)
+    (4): Dropout(p=0.5, inplace=False)
+    (5): ReLU()
+    (6): Linear(in_features=200, out_features=11, bias=True)
+    (7): Sigmoid()
+  )
+)
+2022-09-02 02:46:04,198 - INFO - Structure of Global Classifier: RandomForestClassifier(max_depth=3, random_state=0)
+2022-09-02 02:46:04,199 - CRITICAL - 
+[FUNCTION]: Creating GeneratorTrainer......
+2022-09-02 02:46:04,201 - CRITICAL - Creating a generator
+2022-09-02 02:46:04,205 - INFO - Structure of Generator: Generator(
+  (net): Sequential(
+    (0): Linear(in_features=48, out_features=600, bias=True)
+    (1): LayerNorm((600,), eps=1e-05, elementwise_affine=True)
+    (2): ReLU()
+    (3): Linear(in_features=600, out_features=200, bias=True)
+    (4): LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+    (5): ReLU()
+    (6): Linear(in_features=200, out_features=100, bias=True)
+    (7): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+    (8): ReLU()
+    (9): Linear(in_features=100, out_features=20, bias=True)
+    (10): Sigmoid()
+  )
+)
+2022-09-02 02:46:04,206 - CRITICAL - 
+[FUNCTION]: Training global classifier RF......
+2022-09-02 02:46:09,263 - CRITICAL - After training Random Forest, train accur is 0.7984617575843896, test accur is 0.7947184001367404.
+2022-09-02 02:46:14,874 - CRITICAL - Creating FakeDataset (torch.Size([585090, 48]), torch.Size([585090, 11]))
+2022-09-02 02:46:14,880 - CRITICAL - 
+[FUNCTION]: Imitating Random Forest......
+2022-09-02 02:46:33,767 - CRITICAL - In epoch 0, train loss is 0.000713042332790792, test loss is 0.0005582822486758232.
+2022-09-02 02:46:50,819 - CRITICAL - In epoch 1, train loss is 0.0005905409925617278, test loss is 0.0003763235581573099.
+2022-09-02 02:47:08,059 - CRITICAL - In epoch 2, train loss is 0.0006301653338596225, test loss is 0.0003259732329752296.
+2022-09-02 02:47:27,685 - CRITICAL - In epoch 3, train loss is 0.00042336725164204836, test loss is 0.00030593713745474815.
+2022-09-02 02:47:46,969 - CRITICAL - In epoch 4, train loss is 0.00035852365544997156, test loss is 0.00029064150294288993.
+2022-09-02 02:47:46,975 - CRITICAL - 
+[FUNCTION]: Training Generator......
+2022-09-02 02:47:46,975 - CRITICAL - Enable Attacker Features
+2022-09-02 02:47:46,975 - CRITICAL - Disable Mean Constraint
+2022-09-02 02:47:46,975 - CRITICAL - parameters['unknownVarLambda'] = 0.25
+2022-09-02 02:47:46,976 - CRITICAL - Disable Confidence Rounding
+2022-09-02 02:47:46,976 - CRITICAL - parameters['roundPrecision'] = 1
+2022-09-02 02:47:48,590 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:47:48,591 - CRITICAL - In epoch 0, loss is tensor(0.6611, device='cuda:0')
+2022-09-02 02:47:48,594 - INFO - L2 norm of yhat: tensor(327.1904, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:47:48,595 - INFO - L2 norm of original vector: tensor(234.0421, device='cuda:0')
+2022-09-02 02:47:48,596 - INFO - First two lines of yhat: tensor([[0.3846, 0.6278, 0.8165, 0.5951, 0.7170, 0.6929, 0.4988, 0.7344, 0.7523,
+         0.2027, 0.3726, 0.2570, 0.6833, 0.4978, 0.3384, 0.3650, 0.7081, 0.1435,
+         0.1354, 0.6711],
+        [0.4079, 0.6738, 0.7728, 0.6096, 0.6723, 0.6738, 0.4779, 0.7522, 0.7393,
+         0.1975, 0.3821, 0.3339, 0.6577, 0.3702, 0.3206, 0.3309, 0.7323, 0.1402,
+         0.1181, 0.6757]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:48:07,793 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:48:07,795 - CRITICAL - In epoch 12, loss is tensor(0.0199, device='cuda:0')
+2022-09-02 02:48:07,797 - INFO - L2 norm of yhat: tensor(396.8306, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:48:07,798 - INFO - L2 norm of original vector: tensor(225.5588, device='cuda:0')
+2022-09-02 02:48:07,799 - INFO - First two lines of yhat: tensor([[0.7615, 0.5304, 0.7020, 0.7942, 0.9181, 0.8890, 0.2991, 0.7152, 0.6149,
+         0.0343, 0.0549, 0.2873, 0.6121, 0.3159, 0.0275, 0.8251, 0.6794, 0.3308,
+         0.0644, 0.9332],
+        [0.7501, 0.5342, 0.7127, 0.7911, 0.9097, 0.8829, 0.3017, 0.7236, 0.5961,
+         0.0400, 0.0544, 0.2844, 0.6480, 0.3538, 0.0343, 0.8215, 0.6846, 0.3311,
+         0.0571, 0.9268]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:48:27,126 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:48:27,128 - CRITICAL - In epoch 24, loss is tensor(0.0120, device='cuda:0')
+2022-09-02 02:48:27,130 - INFO - L2 norm of yhat: tensor(383.3140, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:48:27,131 - INFO - L2 norm of original vector: tensor(219.1951, device='cuda:0')
+2022-09-02 02:48:27,133 - INFO - First two lines of yhat: tensor([[0.5868, 0.5720, 0.7792, 0.7364, 0.9486, 0.7242, 0.2448, 0.5017, 0.6037,
+         0.0238, 0.0259, 0.2734, 0.8365, 0.5024, 0.0175, 0.8654, 0.8472, 0.3362,
+         0.0969, 0.9651],
+        [0.5848, 0.5567, 0.7345, 0.7430, 0.9543, 0.7164, 0.2599, 0.5120, 0.5956,
+         0.0170, 0.0198, 0.2653, 0.6541, 0.3828, 0.0130, 0.8679, 0.8522, 0.3484,
+         0.0824, 0.9679]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:48:46,254 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:48:46,256 - CRITICAL - In epoch 36, loss is tensor(0.0103, device='cuda:0')
+2022-09-02 02:48:46,258 - INFO - L2 norm of yhat: tensor(388.8640, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:48:46,259 - INFO - L2 norm of original vector: tensor(225.2462, device='cuda:0')
+2022-09-02 02:48:46,260 - INFO - First two lines of yhat: tensor([[0.4941, 0.6000, 0.6575, 0.8279, 0.9828, 0.6156, 0.2103, 0.3999, 0.5101,
+         0.0079, 0.0090, 0.4002, 0.5114, 0.1541, 0.0069, 0.8694, 0.9311, 0.3153,
+         0.0537, 0.9796],
+        [0.4952, 0.5847, 0.7497, 0.8244, 0.9787, 0.6191, 0.2278, 0.4046, 0.5941,
+         0.0098, 0.0102, 0.4033, 0.7844, 0.4189, 0.0091, 0.8631, 0.9237, 0.3348,
+         0.0832, 0.9770]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:49:05,434 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:49:05,436 - CRITICAL - In epoch 48, loss is tensor(0.0093, device='cuda:0')
+2022-09-02 02:49:05,439 - INFO - L2 norm of yhat: tensor(391.4062, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:49:05,440 - INFO - L2 norm of original vector: tensor(215.9450, device='cuda:0')
+2022-09-02 02:49:05,441 - INFO - First two lines of yhat: tensor([[0.4899, 0.6218, 0.6270, 0.8713, 0.9880, 0.5608, 0.1815, 0.3519, 0.4777,
+         0.0068, 0.0043, 0.4668, 0.4808, 0.0966, 0.0039, 0.8228, 0.9660, 0.3041,
+         0.0420, 0.9873],
+        [0.4937, 0.6251, 0.6742, 0.8825, 0.9862, 0.5594, 0.1804, 0.3422, 0.4779,
+         0.0083, 0.0051, 0.4753, 0.4614, 0.1360, 0.0040, 0.8187, 0.9628, 0.3403,
+         0.0449, 0.9885]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:49:22,888 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-02 02:49:22,890 - CRITICAL - In epoch 59, loss is tensor(0.0086, device='cuda:0')
+2022-09-02 02:49:22,892 - INFO - L2 norm of yhat: tensor(394.8420, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-02 02:49:22,893 - INFO - L2 norm of original vector: tensor(222.0585, device='cuda:0')
+2022-09-02 02:49:22,894 - INFO - First two lines of yhat: tensor([[0.5160, 0.6380, 0.7888, 0.9107, 0.9893, 0.5422, 0.2015, 0.3170, 0.5872,
+         0.0032, 0.0027, 0.4975, 0.8059, 0.4843, 0.0032, 0.7579, 0.9848, 0.3461,
+         0.0927, 0.9843],
+        [0.5215, 0.6322, 0.7639, 0.9106, 0.9912, 0.5366, 0.1926, 0.3057, 0.5324,
+         0.0024, 0.0020, 0.4952, 0.7294, 0.4063, 0.0023, 0.7671, 0.9836, 0.3559,
+         0.0786, 0.9859]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-02 02:49:22,897 - CRITICAL - 
+[FUNCTION]: Testing Generator......
+2022-09-02 02:49:22,897 - CRITICAL - Enable Attacker Features
+2022-09-02 02:49:22,898 - CRITICAL - Disable Mean Constraint
