@@ -321,6 +321,18 @@ class GeneratorTrainer():
                 #    ground_truth = torch.from_numpy(ground_truth)
                 #else:
                 ground_truth = netR(x)
+
+                defense_bool = 0
+                if defense_bool == 1:
+                    y_ground_truth_new = ground_truth.cpu().detach().numpy()
+                    transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
+                    pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+                    y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                    old_y_ground_truth = ground_truth
+
+                    ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
+
+
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
@@ -379,7 +391,7 @@ class GeneratorTrainer():
             yhat = netG(fake_input2netG)
             #print(yhat)
 
-            defense_bool = 1
+            defense_bool = 0
             if defense_bool == 1:
                 y_ground_truth_new = yhat.cpu().detach().numpy()
                 #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
