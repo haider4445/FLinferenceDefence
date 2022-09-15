@@ -377,7 +377,7 @@ class GeneratorTrainer():
                 fake_input2netG = torch.randn(x.size(0), n_attacker + n_victim)
              
             yhat = netG(fake_input2netG)
-            print(yhat)
+            #print(yhat)
 
             defense_bool = 1
             if defense_bool == 1:
@@ -390,13 +390,13 @@ class GeneratorTrainer():
                 #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
                 #print('transformed: ', y_ground_truth_new)
                 old_y_ground_truth = yhat
-                print('old: ', old_y_ground_truth)
+                #print('old: ', old_y_ground_truth)
 
                 yhat = torch.from_numpy(y_ground_truth_new).float().to(device)
                 #for ind in range(len(yhat)):
                     #yhat[ind] = round(y_ground_truth_new[ind], 2)
                     #yhat[ind] = y_ground_truth_new[ind]
-                print('new: ', yhat)
+                #print('new: ', yhat)
 
 
 
