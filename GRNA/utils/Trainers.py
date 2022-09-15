@@ -322,7 +322,7 @@ class GeneratorTrainer():
                 #else:
                 ground_truth = netR(x)
 
-                defense_bool = 0
+                defense_bool = 1
                 if defense_bool == 1:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
