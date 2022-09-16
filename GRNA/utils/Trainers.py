@@ -322,7 +322,7 @@ class GeneratorTrainer():
                 #else:
                 ground_truth = netR(x)
 
-                defense_bool = 1
+                defense_bool = 0
                 if defense_bool == 1:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
@@ -410,7 +410,10 @@ class GeneratorTrainer():
                     #yhat[ind] = y_ground_truth_new[ind]
                 #print('new: ', yhat)
 
-
+            enableConfRoundInf = True
+            if enableConfRoundInf:
+                n_digits = parameters['roundPrecision']
+                yhat = torch.round(yhat * 10**n_digits) / (10**n_digits) 
 
             if enableMean:
                 randomguess = mean_feature[n_attacker:].repeat(x.size(0), 1)
