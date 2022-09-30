@@ -23,6 +23,7 @@ from datetime import datetime
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF
 from models.AttackModels import Generator, FakeRandomForest
 import transformation
+import time
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -286,16 +287,20 @@ class GeneratorTrainer():
         enableAttackerFeatures = parameters['enableAttackerFeatures']
         logging.critical('Enable Attacker Features') if enableAttackerFeatures else logging.critical('Disable Attacker Features')
         enableMean = parameters['enableMean']
+        #defense_bool = parameters['defenseBool']
         logging.critical('Enable Mean Constraint') if enableMean else logging.critical('Disable Mean Constraint')
         logging.critical('parameters[\'unknownVarLambda\'] = %s', parameters['unknownVarLambda']) 
         enableConfRound = parameters['enableConfRound']
         logging.critical('Enable Confidence Rounding') if enableConfRound else logging.critical('Disable Confidence Rounding') 
         logging.critical('parameters[\'roundPrecision\'] = %s', parameters['roundPrecision'])
-        
+        total_time = 0
+        total_n = 0
         for epoch in range(epochs):
             accurate = 0.0
             train_accur_base = 0.0
             losses = []
+            accurr = 0.0
+            basee = 0.0
             for x, y in predictloader:
                 optimizerG.zero_grad()
                 x = x.to(device)
@@ -320,6 +325,9 @@ class GeneratorTrainer():
                 #    ground_truth = classifierTrainer.modelRF.rf.predict_proba(x.numpy())
                 #    ground_truth = torch.from_numpy(ground_truth)
                 #else:
+
+
+                start = time.time()
                 ground_truth = netR(x)
 
                 defense_bool = 0
@@ -328,15 +336,22 @@ class GeneratorTrainer():
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
                     pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
                     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                    old_y_ground_truth = ground_truth
-
+                    #old_y_ground_truth = ground_truth
                     ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
+                    #ordering = old_y_ground_truth
 
 
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
-                    
+                
+                end = time.time()
+                total_time += end-start
+                total_n += 1
+
+                accurr += ( (ground_truth.argmax(dim=1)) == y ).sum()
+                basee += x.shape[0]
+
                 loss = ((yfinal - ground_truth.detach())**2).sum() + parameters['meanLambda'] * mean_loss + \
                      + parameters['unknownVarLambda'] * unknown_var_loss
                     
@@ -350,6 +365,10 @@ class GeneratorTrainer():
                 logging.info("L2 norm of yhat: %s", (yhat**2).sum())
                 logging.info("L2 norm of original vector: %s", (x[:, n_attacker:]**2).sum())
                 logging.info("First two lines of yhat: %s", yhat[:2, :])
+                logging.critical("Accuracy of the original model: %s", accurr/basee)
+                logging.critical("Total Time Per Data Point Prediction %s", total_time/total_n)
+                
+
 
     def test(self, predictloader, mean_feature):
         def lossPerFeature(input, target):
@@ -378,7 +397,9 @@ class GeneratorTrainer():
         logging.critical('Enable Attacker Features') if enableAttackerFeatures else logging.critical('Disable Attacker Features')
         enableMean = parameters['enableMean']
         logging.critical('Enable Mean Constraint') if enableMean else logging.critical('Disable Mean Constraint')
-           
+        accur = 0.0
+        base = 0.0
+
         for x, y in predictloader:
             x = x.to(device)
             y = y.to(device)
@@ -389,31 +410,42 @@ class GeneratorTrainer():
                 fake_input2netG = torch.randn(x.size(0), n_attacker + n_victim)
              
             yhat = netG(fake_input2netG)
+
+
+
+
             #print(yhat)
 
-            defense_bool = 0
-            if defense_bool == 1:
-                y_ground_truth_new = yhat.cpu().detach().numpy()
-                #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
-                #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
-                transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
-                pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
-                y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
-                #print('transformed: ', y_ground_truth_new)
-                old_y_ground_truth = yhat
-                #print('old: ', old_y_ground_truth)
+            # defense_bool = 0
+            # if defense_bool == 1:
+            #     y_ground_truth_new = yhat.cpu().detach().numpy()
+            #     #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
+            #     #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
+            #     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
+            #     pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+            #     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+            #     #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
+            #     #print('transformed: ', y_ground_truth_new)
+            #     old_y_ground_truth = yhat
+            #     #print('old: ', old_y_ground_truth)
 
-                yhat = torch.from_numpy(y_ground_truth_new).float().to(device)
-                #for ind in range(len(yhat)):
-                    #yhat[ind] = round(y_ground_truth_new[ind], 2)
-                    #yhat[ind] = y_ground_truth_new[ind]
-                #print('new: ', yhat)
+            #     yhat = torch.from_numpy(y_ground_truth_new).float().to(device)
+            #     #for ind in range(len(yhat)):
+            #         #yhat[ind] = round(y_ground_truth_new[ind], 2)
+            #         #yhat[ind] = y_ground_truth_new[ind]
+            #     #print('new: ', yhat)
 
-            enableConfRoundInf = True
-            if enableConfRoundInf:
-                n_digits = parameters['roundPrecision']
-                yhat = torch.round(yhat * 10**n_digits) / (10**n_digits) 
+
+            # enableConfRoundInf = False
+            # if enableConfRoundInf:
+            #     n_digits = parameters['roundPrecision']
+            #     yhat = torch.round(yhat * 10**n_digits) / (10**n_digits) 
+
+            # accur += ( (yhat.argmax(dim=1)) == y ).sum()
+            # base += x.shape[0]
+
+            #print("yhatmax: ", yhat.argmax(dim=1))
+            #print("y: ", y)
 
             if enableMean:
                 randomguess = mean_feature[n_attacker:].repeat(x.size(0), 1)
@@ -448,10 +480,15 @@ class GeneratorTrainer():
         mean_guess_loss = sum(random_losses)/len(random_losses)
         mean_model_loss_pf = total_model_loss_pf / len(generator_losses)
         mean_guess_loss_pf = total_random_loss_pf / len(random_losses)
+        #accuracy = accur/base
         logging.critical("Mean generator loss: %s", mean_model_loss)
         logging.critical("Mean random guess loss: %s", mean_guess_loss)
         logging.critical("Mean generator loss Per Feature: %s", mean_model_loss_pf)
         logging.critical("Mean random guess loss Per Feature: %s", mean_guess_loss_pf)
+        #logging.critical("Accuracy: %s", accuracy)
+        #logging.critical("Accur: %s", accur)
+        #logging.critical("Accur: %s", base)
+        
         return mean_model_loss, mean_guess_loss
         
     def test_rf(self, predictloader, mean_feature, trees_internal_node_features, trees_internal_node_thresholds):

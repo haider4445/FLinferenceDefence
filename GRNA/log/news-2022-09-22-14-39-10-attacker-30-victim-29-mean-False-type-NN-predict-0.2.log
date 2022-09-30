@@ -1,0 +1,150 @@
+2022-09-22 14:39:10,779 - CRITICAL - 
+
+
+<<<<<<<-------------------------------NumOfFeaturesToRecover: 29------------------------------->>>>>>>
+2022-09-22 14:39:10,779 - CRITICAL - Running on device: cuda:0
+2022-09-22 14:39:10,781 - CRITICAL - Writing log to file: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\GRNA\log\news-2022-09-22-14-39-10-attacker-30-victim-29-mean-False-type-NN-predict-0.2.log
+2022-09-22 14:39:10,781 - CRITICAL - n_attacker = 30, n_victim = 29
+2022-09-22 14:39:10,783 - INFO - # By default, section names are case sensitive but keys are not
+# Config parsers do not guess datatypes of values in configuration files, always storing them internally as strings. 
+
+[DEFAULT]
+DataFile = news_cleaned.csv
+LogFile = news.log
+NumOfFeaturesOwnedByAttacker = 30
+NumOfFeaturesToRecover = 29
+RunningTimes = 2
+
+[DATASET]
+TrainPortion = 0.6
+TestPortion = 0.2
+PredictPortion = 0.2
+
+[DEFENCE]
+EnableConfidenceRounding = False
+RoundingPrecision = 1
+
+[GENERATOR]
+Epochs = 60
+EnableAttackerFeatures = True  
+EnableKnownMeanConstraint = False         
+KnownMeanLambda = 1.2
+UnknownVarLambda = 0.25
+
+# modeltype should be one of (LR, NN, RF)
+[CLASSIFIER]
+ModeType = NN
+# MUST SET: should be 2 for LR 
+ClassNum = 5
+Epochs = 60      
+
+    
+
+2022-09-22 14:39:10,783 - CRITICAL - 
+
+<----------------- Running count: 1 / 2 ----------------->
+
+
+2022-09-22 14:39:12,962 - CRITICAL - Dataset column permutation is: 
+ tensor([47,  1, 29,  3, 24, 18, 28, 14, 33, 11, 57,  5, 13,  6, 21, 49, 10,  8,
+        48, 20, 39, 26, 56,  0, 15,  2, 12,  7, 30, 25, 19, 43, 52, 16,  4, 17,
+        45, 46, 44, 58, 23, 32, 55, 41, 42, 35, 38, 22, 51, 50, 40, 34, 36, 37,
+        53, 31, 27,  9, 54])
+2022-09-22 14:39:12,973 - CRITICAL - Creating dataset, len(samples): 39644; positive labels sum: 34720
+2022-09-22 14:39:12,985 - CRITICAL - For dataset C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\news_cleaned.csv, dataset length: 39644
+2022-09-22 14:39:12,986 - CRITICAL - 
+[FUNCTION]: Splitting dataset by getSplittedDataset()......
+2022-09-22 14:39:12,986 - INFO - Display first (x, y) pair of dataset:
+ tensor([7.6923e-01, 4.7619e-01, 5.8817e-04, 9.4664e-04, 2.7670e-04, 2.6455e-03,
+        5.8817e-04, 0.0000e+00, 0.0000e+00, 4.4444e-01, 0.0000e+00, 1.2544e-03,
+        1.0000e+00, 1.3158e-02, 0.0000e+00, 3.7864e-01, 5.8202e-01, 7.8125e-03,
+        2.3077e-01, 2.3349e-05, 4.0853e-01, 0.0000e+00, 4.0625e-01, 1.0000e+00,
+        0.0000e+00, 2.5844e-02, 0.0000e+00, 1.7241e-02, 1.0000e+00, 0.0000e+00,
+        0.0000e+00, 5.2162e-01, 6.5000e-01, 0.0000e+00, 9.5969e-04, 0.0000e+00,
+        2.9367e-01, 7.4074e-02, 4.3359e-01, 1.8750e-01, 0.0000e+00, 0.0000e+00,
+        5.0000e-01, 4.4534e-02, 4.3273e-02, 0.0000e+00, 5.3973e-01, 0.0000e+00,
+        7.0000e-01, 1.0000e-01, 4.3483e-02, 0.0000e+00, 0.0000e+00, 0.0000e+00,
+        4.0000e-01, 0.0000e+00, 5.8817e-04, 0.0000e+00, 8.0000e-01]), tensor(0.)
+2022-09-22 14:39:12,987 - INFO - Shape of (x, y): torch.Size([59]) torch.Size([])
+2022-09-22 14:39:12,989 - CRITICAL - len(trainset): 23786
+2022-09-22 14:39:12,989 - CRITICAL - len(testset): 7928
+2022-09-22 14:39:12,990 - CRITICAL - len(predictset): 7930
+2022-09-22 14:39:12,990 - INFO - len(trainloader): 372
+2022-09-22 14:39:12,990 - INFO - len(testloader): 124
+2022-09-22 14:39:12,990 - INFO - len(predictloader): 124
+2022-09-22 14:39:12,990 - CRITICAL - 
+[FUNCTION]: Creating GlobalClassifierTrainer......
+2022-09-22 14:39:12,990 - CRITICAL - Creating a model for type NN
+2022-09-22 14:39:13,690 - INFO - Structure of Global Classifier: GlobalPreModel_NN(
+  (dense): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): Dropout(p=0.5, inplace=False)
+    (2): ReLU()
+    (3): Linear(in_features=600, out_features=300, bias=True)
+    (4): Dropout(p=0.5, inplace=False)
+    (5): ReLU()
+    (6): Linear(in_features=300, out_features=100, bias=True)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): ReLU()
+    (9): Linear(in_features=100, out_features=5, bias=True)
+  )
+)
+2022-09-22 14:39:13,690 - CRITICAL - 
+[FUNCTION]: Creating GeneratorTrainer......
+2022-09-22 14:39:13,690 - CRITICAL - Creating a generator
+2022-09-22 14:39:13,695 - INFO - Structure of Generator: Generator(
+  (net): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): LayerNorm((600,), eps=1e-05, elementwise_affine=True)
+    (2): ReLU()
+    (3): Linear(in_features=600, out_features=200, bias=True)
+    (4): LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+    (5): ReLU()
+    (6): Linear(in_features=200, out_features=100, bias=True)
+    (7): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+    (8): ReLU()
+    (9): Linear(in_features=100, out_features=29, bias=True)
+    (10): Sigmoid()
+  )
+)
+2022-09-22 14:39:13,695 - CRITICAL - 
+[FUNCTION]: Training global classifier NN......
+2022-09-22 14:39:16,634 - CRITICAL - In epoch 0, train accur is 0.419952929019928, test accur is 0.4301210939884186.
+2022-09-22 14:39:28,641 - CRITICAL - In epoch 12, train accur is 0.4342890977859497, test accur is 0.43819373846054077.
+2022-09-22 14:39:40,540 - CRITICAL - In epoch 24, train accur is 0.4392920434474945, test accur is 0.4376891851425171.
+2022-09-22 14:39:52,531 - CRITICAL - In epoch 36, train accur is 0.44845709204673767, test accur is 0.4378153383731842.
+2022-09-22 14:40:04,152 - CRITICAL - In epoch 48, train accur is 0.4519885778427124, test accur is 0.43995964527130127.
+2022-09-22 14:40:14,790 - CRITICAL - In epoch 59, train accur is 0.45383840799331665, test accur is 0.43504035472869873.
+2022-09-22 14:40:14,791 - CRITICAL - 
+[FUNCTION]: Training Generator......
+2022-09-22 14:40:14,792 - CRITICAL - Enable Attacker Features
+2022-09-22 14:40:14,793 - CRITICAL - Disable Mean Constraint
+2022-09-22 14:40:14,793 - CRITICAL - parameters['unknownVarLambda'] = 0.25
+2022-09-22 14:40:14,793 - CRITICAL - Disable Confidence Rounding
+2022-09-22 14:40:14,793 - CRITICAL - parameters['roundPrecision'] = 1
+2022-09-22 14:40:15,925 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-22 14:40:15,926 - CRITICAL - In epoch 0, loss is tensor(160.7632, device='cuda:0')
+2022-09-22 14:40:15,929 - INFO - L2 norm of yhat: tensor(487.0110, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-22 14:40:15,931 - INFO - L2 norm of original vector: tensor(332.1916, device='cuda:0')
+2022-09-22 14:40:15,932 - INFO - First two lines of yhat: tensor([[0.7756, 0.3996, 0.7381, 0.2394, 0.6243, 0.6416, 0.6405, 0.6709, 0.7353,
+         0.2940, 0.4414, 0.7617, 0.5187, 0.2123, 0.5772, 0.3579, 0.3980, 0.5665,
+         0.5633, 0.3610, 0.7738, 0.5177, 0.3978, 0.3919, 0.5102, 0.6371, 0.1311,
+         0.4755, 0.5190],
+        [0.7926, 0.4028, 0.7133, 0.2210, 0.6103, 0.6459, 0.6301, 0.7075, 0.7295,
+         0.3354, 0.4439, 0.7520, 0.5569, 0.2609, 0.5527, 0.3993, 0.4104, 0.5392,
+         0.5145, 0.3369, 0.7813, 0.6503, 0.3894, 0.4113, 0.5125, 0.6028, 0.1217,
+         0.4737, 0.5807]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-22 14:40:15,936 - CRITICAL - Accuracy: tensor(0.4353, device='cuda:0')
+2022-09-22 14:40:31,051 - INFO - >>>>>>>>>>>>>>>>>
+2022-09-22 14:40:31,052 - CRITICAL - In epoch 12, loss is tensor(110.7499, device='cuda:0')
+2022-09-22 14:40:31,056 - INFO - L2 norm of yhat: tensor(372.3688, device='cuda:0', grad_fn=<SumBackward0>)
+2022-09-22 14:40:31,057 - INFO - L2 norm of original vector: tensor(350.9851, device='cuda:0')
+2022-09-22 14:40:31,058 - INFO - First two lines of yhat: tensor([[0.5325, 0.4865, 0.8908, 0.1212, 0.6478, 0.5539, 0.6819, 0.3776, 0.5413,
+         0.1708, 0.1543, 0.3104, 0.1745, 0.2946, 0.8339, 0.3255, 0.4203, 0.6277,
+         0.6554, 0.2066, 0.6893, 0.8126, 0.2789, 0.3173, 0.1972, 0.1825, 0.0288,
+         0.0477, 0.3503],
+        [0.6840, 0.4315, 0.8624, 0.0817, 0.7290, 0.6018, 0.5825, 0.4357, 0.6643,
+         0.1363, 0.1179, 0.3398, 0.2194, 0.3102, 0.8443, 0.3076, 0.5681, 0.4804,
+         0.6830, 0.3319, 0.5935, 0.8071, 0.2611, 0.3171, 0.2944, 0.2041, 0.0264,
+         0.0549, 0.3812]], device='cuda:0', grad_fn=<SliceBackward0>)
+2022-09-22 14:40:31,063 - CRITICAL - Accuracy: tensor(0.4353, device='cuda:0')

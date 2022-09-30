@@ -72,32 +72,41 @@ def generateDerivedTemplateMatrix(k):
 	return randomized_derived_matrix
 
 
-r = np.array([[5.1, 3.5, 1.4, 0.2], [4.9, 3.0, 1.4, 0.2]])
-
-r = np.array([0.9853, 0.0147])
-r = np.reshape(r, (-1, 1))
-
-r = np.array([5.1, 3.5, 1.4, 0.2, 0.3, 0.1, 0.5, 0.9, 1.2, 1.5])
 
 
-matrix = generateTemplateMatrix(10)
+
+
+r = [[ -6.3511143,    3.4839284,   -2.7563498,   -1.5116631,   -0.5973612 ],
+ [-25.316193,    -4.519102,     3.646158,     1.0327103,   -4.3337975 ],
+ [-25.366964,    -0.5158503,   -0.74885315,  -5.1572766,    3.500202  ]]
+
+
+# r = np.array([[5.1, 3.5, 1.4, 0.2], [4.9, 3.0, 1.4, 0.2]])
+
+# r = np.array([0.9853, 0.0147])
+# r = np.reshape(r, (-1, 1))
+
+
+                    
+matrix = generateTemplateMatrix(5)
 resultant2 = np.dot(r,matrix)
 pert_matrix = perturbedMatrix(matrix, -4)
 resultant = np.dot(r,pert_matrix)
 
-# print(np.linalg.norm(r[1]-r[0]))
-# print(np.linalg.norm(resultant[1]-resultant[0]))
-# print(np.linalg.norm(resultant2[1]-resultant2[0]))
+
+for i in range(len(r[0])-3):
+	print(np.linalg.norm(r[0][i+3]-r[0][i]))
+	print(np.linalg.norm(resultant[0][i+3]-resultant[0][i]))
+	print(np.linalg.norm(resultant2[0][i+3]-resultant2[0][i]))
 
 
-print(np.linalg.norm(r))
-print(np.linalg.norm(resultant))
-print(np.linalg.norm(resultant2))
 
-print(resultant)
 
 # print(np.corrcoef(r[1], r[0]))
 # print(np.corrcoef(resultant[1], resultant[0]))
 # print(np.corrcoef(resultant2[1], resultant2[0]))
-
+print(r)
+print('------')
+print(resultant2)
+print('----------')
 print(resultant)

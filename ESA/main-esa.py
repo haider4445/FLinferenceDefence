@@ -223,6 +223,17 @@ if __name__=='__main__':
                 optimizer.zero_grad()
                 yhat = model(x)
                 #loss = F.nll_loss(yhat, y.long())
+                defense_bool_train = 0
+                if defense_bool_train == 1:
+                    y_ground_truth_new = yhat.cpu().detach().numpy()
+                    transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
+                    pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+                    y_ground_truth_new = np.dot(y_ground_truth_new.T,pert_matrix)
+                    old_y_ground_truth = yhat
+                    y_ground_truth_new = torch.from_numpy(y_ground_truth_new.T).float()
+                    for i in range(len(yhat)):
+                        yhat[i] = y_ground_truth_new[i]
+
                 loss = criteria(yhat, y.long())
                 loss.backward()
                 optimizer.step()
@@ -298,13 +309,8 @@ if __name__=='__main__':
             ground_truth_ln_diff.resize_(class_num-1, 1)
             a = torch.matmul(params_adv, input_sample_adv)
             b = ground_truth_ln_diff - a
-            print('a', a)
-            print('ground_truth_ln_diff', ground_truth_ln_diff)
             x_target = torch.matmul(params_target_inv, b)
             attack_mse = ((x_target - input_sample_target) ** 2).mean()
-            print('input_sample_target', input_sample_target)
-            print('x_target', x_target)
-            print('attack_mse',attack_mse)
             # if id == 0:
                 # print('input_sample_adv: ', input_sample_adv)
                 # print('input_sample_adv shape: ', input_sample_adv.shape)
@@ -325,25 +331,37 @@ if __name__=='__main__':
         for i in range(pred_set_num):
             sample, label = pred_set.__getitem__(i)
             y_ground_truth = target_model(sample)
-            #print('original: ', y_ground_truth)
+            print('original: ', y_ground_truth)
             defense_bool = 1
-            if defense_bool == 2:
-                random_num = random.random()
-                y_ground_truth = y_ground_truth*random_num
             if defense_bool == 1:
-                y_ground_truth_new = y_ground_truth.detach().numpy()
-                #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
-                #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
+                y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
                 transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
                 pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
                 y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
-                #print('transformed: ', y_ground_truth_new)
                 old_y_ground_truth = y_ground_truth
-                #print(old_y_ground_truth)
-                for ind in range(len(y_ground_truth)):
-                    y_ground_truth[ind] = round(y_ground_truth_new[ind], 2)
-                    #y_ground_truth[ind] = y_ground_truth_new[ind]
+                y_ground_truth = torch.from_numpy(y_ground_truth_new).float()#.to(device)
+
+            print('new: ', y_ground_truth)
+            
+
+            # defense_bool = 1
+            # if defense_bool == 2:
+            #     random_num = random.random()
+            #     y_ground_truth = y_ground_truth*random_num
+            # if defense_bool == 1:
+            #     y_ground_truth_new = y_ground_truth.detach().numpy()
+            #     #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
+            #     #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
+            #     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
+            #     pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+            #     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+            #     #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
+            #     #print('transformed: ', y_ground_truth_new)
+            #     old_y_ground_truth = y_ground_truth
+            #     #print(old_y_ground_truth)
+            #     for ind in range(len(y_ground_truth)):
+            #         y_ground_truth[ind] = round(y_ground_truth_new[ind], 2)
+            #         #y_ground_truth[ind] = y_ground_truth_new[ind]
 
 
                 #print(y_ground_truth)
