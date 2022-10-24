@@ -331,10 +331,14 @@ class GeneratorTrainer():
                 ground_truth = netR(x)
 
                 defense_bool = 0
-                if defense_bool == 1:
+                enableNoising = 0
+                std_dev_noising = 0.1
+                perturbation_level = -4
+
+                if parameters["defense_bool"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
-                    pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+                    pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
                     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
                     #old_y_ground_truth = ground_truth
                     ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
@@ -345,6 +349,11 @@ class GeneratorTrainer():
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
+
+                if parameters["enableNoising"]:
+                    ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["std_dev_noising"], (len(ground_truth),len(ground_truth[0])))).float()
+                    ground_truth += ground_truth_rand_values 
+
                 end = time.time()
                 total_time += end-start
                 total_n += 1
@@ -411,41 +420,6 @@ class GeneratorTrainer():
              
             yhat = netG(fake_input2netG)
 
-
-
-
-            #print(yhat)
-
-            # defense_bool = 0
-            # if defense_bool == 1:
-            #     y_ground_truth_new = yhat.cpu().detach().numpy()
-            #     #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
-            #     #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
-            #     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
-            #     pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
-            #     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-            #     #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
-            #     #print('transformed: ', y_ground_truth_new)
-            #     old_y_ground_truth = yhat
-            #     #print('old: ', old_y_ground_truth)
-
-            #     yhat = torch.from_numpy(y_ground_truth_new).float().to(device)
-            #     #for ind in range(len(yhat)):
-            #         #yhat[ind] = round(y_ground_truth_new[ind], 2)
-            #         #yhat[ind] = y_ground_truth_new[ind]
-            #     #print('new: ', yhat)
-
-
-            # enableConfRoundInf = False
-            # if enableConfRoundInf:
-            #     n_digits = parameters['roundPrecision']
-            #     yhat = torch.round(yhat * 10**n_digits) / (10**n_digits) 
-
-            # accur += ( (yhat.argmax(dim=1)) == y ).sum()
-            # base += x.shape[0]
-
-            #print("yhatmax: ", yhat.argmax(dim=1))
-            #print("y: ", y)
 
             if enableMean:
                 randomguess = mean_feature[n_attacker:].repeat(x.size(0), 1)
