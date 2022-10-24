@@ -330,20 +330,12 @@ class GeneratorTrainer():
                 start = time.time()
                 ground_truth = netR(x)
 
-                defense_bool = 0
-                enableNoising = 0
-                std_dev_noising = 0.1
-                perturbation_level = -4
-
                 if parameters["EnablePREDVEL"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
                     pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
                     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                    #old_y_ground_truth = ground_truth
                     ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
-                    #ordering = old_y_ground_truth
-
 
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']

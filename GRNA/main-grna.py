@@ -19,7 +19,8 @@ import numpy as np
 import torchvision.models as tvmodels
 from datetime import datetime
 from pathlib import Path
-
+import argparse
+from parseArguments import parser_func
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN
 from models.AttackModels import Generator
 from utils.Trainers import GlobalClassifierTrainer, GeneratorTrainer
@@ -114,6 +115,27 @@ def getSplittedDataset(trainpart, testpart, predictpart, expset):
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
+
+
+def getParameters():
+    parameters = vars(parser_func().parse_args())
+
+    print(parameters)
+
+    parameters['datasetpath'] = parentDir(currentDir()) + os.sep + "datasets" + os.sep + parameters['DataFile']
+
+
+    logfile = parameters['LogFile']
+    index = logfile.rfind('.')
+    if index != -1:
+        logfile = logfile[:index] + getTimeStamp() + logfile[index:]
+    else:
+        logfile = logfile + getTimeStamp()
+
+    parameters['logpath'] = currentDir() + os.sep + "log" + os.sep + logfile
+    
+    return parameters   
+
  
 def readConfigFile(configfile):
     parameters = {}
@@ -121,6 +143,7 @@ def readConfigFile(configfile):
     config = configparser.ConfigParser()
     config.read(configfile)
 
+    
     p_default = config['DEFAULT']
     p_dataset = config['DATASET']
     p_defence = config['DEFENCE']
@@ -227,7 +250,8 @@ if __name__=='__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # read parameters from config file
     configfile = 'config.ini'
-    parameters = readConfigFile(configfile)
+    #parameters = readConfigFile(configfile)
+    parameters = getParameters()
     original_log_path = parameters['logpath']
     
     manualseed = 47
