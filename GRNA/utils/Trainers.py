@@ -335,7 +335,7 @@ class GeneratorTrainer():
                 std_dev_noising = 0.1
                 perturbation_level = -4
 
-                if parameters["defense_bool"]:
+                if parameters["EnablePREDVEL"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
                     pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
@@ -350,8 +350,8 @@ class GeneratorTrainer():
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
 
-                if parameters["enableNoising"]:
-                    ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["std_dev_noising"], (len(ground_truth),len(ground_truth[0])))).float()
+                if parameters["EnableNoising"]:
+                    ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float()
                     ground_truth += ground_truth_rand_values 
 
                 end = time.time()
