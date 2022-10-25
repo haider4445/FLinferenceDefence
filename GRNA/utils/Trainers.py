@@ -343,8 +343,8 @@ class GeneratorTrainer():
                 
 
                 if parameters["EnableNoising"]:
-                    ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float()
-                    ground_truth += ground_truth_rand_values 
+                    ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float().to(device)
+                    ground_truth.data += ground_truth_rand_values.data 
 
                 end = time.time()
                 total_time += end-start

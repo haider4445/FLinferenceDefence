@@ -1,0 +1,36 @@
+2022-10-25 01:48:09,984 - CRITICAL - dataset: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\news_cleaned.csv
+2022-10-25 01:48:09,988 - CRITICAL - number of target features: 29
+2022-10-25 01:48:09,988 - CRITICAL - max tree depth: 5
+2022-10-25 01:48:09,989 - CRITICAL - number of experimental trials: 2
+2022-10-25 01:48:12,936 - CRITICAL - Begin trials
+2022-10-25 01:48:12,936 - CRITICAL - -------------------------------------
+2022-10-25 01:48:12,942 - CRITICAL - Attack trial 1 / 2
+2022-10-25 01:48:16,487 - INFO - Decision Tree	 2-Avg train_perf:	0.441471, test_perf:	0.421567
+2022-10-25 01:48:16,491 - INFO - target feature indexes: [30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
+ 54 55 56 57 58]
+2022-10-25 01:48:23,793 - CRITICAL - Total Time Per Data Point Prediction 9.846004746362862e-05
+2022-10-25 01:48:23,793 - CRITICAL - Accuracy of the original model: 0.12990288813217304
+2022-10-25 01:48:23,797 - CRITICAL - -----------------------------------------------------
+2022-10-25 01:48:23,799 - CRITICAL - total correct guess num: 9317
+2022-10-25 01:48:23,799 - CRITICAL - total unknown compare num: 16911
+2022-10-25 01:48:23,799 - CRITICAL - total correct guess rate: 0.550943
+2022-10-25 01:48:23,800 - CRITICAL - baseline total correct guess num: 7867
+2022-10-25 01:48:23,800 - CRITICAL - baseline total unknown compare num: 15935
+2022-10-25 01:48:23,800 - CRITICAL - baseline total correct guess rate: 0.493693
+2022-10-25 01:48:23,800 - CRITICAL - -------------------------------------
+2022-10-25 01:48:23,800 - CRITICAL - Attack trial 2 / 2
+2022-10-25 01:48:27,150 - INFO - Decision Tree	 2-Avg train_perf:	0.434810, test_perf:	0.430396
+2022-10-25 01:48:27,154 - INFO - target feature indexes: [30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
+ 54 55 56 57 58]
+2022-10-25 01:48:39,737 - CRITICAL - Total Time Per Data Point Prediction 0.00017028249427159388
+2022-10-25 01:48:39,737 - CRITICAL - Accuracy of the original model: 0.12511035439525792
+2022-10-25 01:48:39,739 - CRITICAL - -----------------------------------------------------
+2022-10-25 01:48:39,740 - CRITICAL - total correct guess num: 5439
+2022-10-25 01:48:39,740 - CRITICAL - total unknown compare num: 8887
+2022-10-25 01:48:39,740 - CRITICAL - total correct guess rate: 0.612018
+2022-10-25 01:48:39,740 - CRITICAL - baseline total correct guess num: 4923
+2022-10-25 01:48:39,741 - CRITICAL - baseline total unknown compare num: 9888
+2022-10-25 01:48:39,742 - CRITICAL - baseline total correct guess rate: 0.497876
+2022-10-25 01:48:39,742 - CRITICAL - -------------------------------------
+2022-10-25 01:48:39,742 - CRITICAL - Path restriction attack	 2-Avg accuracy:	0.581480
+2022-10-25 01:48:39,742 - CRITICAL - Random guess attack	 2-Avg accuracy:	0.495785

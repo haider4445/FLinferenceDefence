@@ -27,6 +27,8 @@ import os
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 import transformation
+import argparse
+from parseArguments import parser_func
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -71,6 +73,28 @@ def initlogging(logfile):
     # add formatter to ch
     ch.setFormatter(logging.Formatter('%(message)s'))
     logging.getLogger().addHandler(ch) 
+
+
+def getParameters():
+    parameters = vars(parser_func().parse_args())
+    print(parameters)
+
+    parameters['data_path'] = parentDir(currentDir()) + os.sep + "datasets" + os.sep + parameters['DataFile']
+
+    logfile = parameters['LogFile']
+    index = logfile.rfind('.')
+    if index != -1:
+        logfile = logfile[:index]  + "_" + "unknown_" + str(parameters['num_target_features']) \
+                + "_expnum_" + str(parameters['num_exps']) \
+                + "_" + time.strftime("%Y%m%d%H%M%S") + logfile[index:]
+    else:
+        logfile = logfile + "_" + "unknown_" + str(parameters['num_target_features']) \
+                + "_expnum_" + str(parameters['num_exps']) \
+                + "_" + time.strftime("%Y%m%d%H%M%S") + ".log"
+        
+    parameters['logpath'] = currentDir() + os.sep + "log" + os.sep + logfile
+
+    return parameters
 
 def readConfigFile(configfile):
     parameters = {}
@@ -126,8 +150,9 @@ if __name__=='__main__':
     
     # read parameters from config file
     configfile = 'config.ini'
-    parameters = readConfigFile(configfile)
-    
+    #parameters = readConfigFile(configfile)
+    parameters = getParameters()
+
     epochs = parameters['epoch_num']
     trials = parameters['num_exps']
     
@@ -328,51 +353,41 @@ if __name__=='__main__':
         total_attack_mse = 0.0
         total_rand_mse = 0.0
         pred_interval = 1000
+        accurr = 0.0
+        basee = 0.0
+        total_time = 0
+        total_n = 0
         for i in range(pred_set_num):
             sample, label = pred_set.__getitem__(i)
+            start = time.time()
             y_ground_truth = target_model(sample)
-            print('original: ', y_ground_truth)
-            defense_bool = 1
-            if defense_bool == 1:
+
+
+            if parameters["EnablePREDVEL"]:
                 y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
                 transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
-                pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
+                pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
                 y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                old_y_ground_truth = y_ground_truth
-                y_ground_truth = torch.from_numpy(y_ground_truth_new).float()#.to(device)
+                y_ground_truth.data = torch.from_numpy(y_ground_truth_new).float().data
+                #y_ground_truth = y_ground_truth + torch.min(y_ground_truth)
+                #y_ground_truth = y_ground_truth/sum(y_ground_truth)
 
-            print('new: ', y_ground_truth)
+            if parameters['enableConfRound']:
+                n_digits = parameters['roundPrecision']
+                y_ground_truth.data = (torch.round(y_ground_truth * 10**n_digits) / (10**n_digits)).data 
             
 
-            # defense_bool = 1
-            # if defense_bool == 2:
-            #     random_num = random.random()
-            #     y_ground_truth = y_ground_truth*random_num
-            # if defense_bool == 1:
-            #     y_ground_truth_new = y_ground_truth.detach().numpy()
-            #     #y_ground_truth_new = np.reshape(y_ground_truth_new, (-1, 1))
-            #     #transform_matrix = transformation.generateDerivedTemplateMatrix(len(y_ground_truth_new))
-            #     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
-            #     pert_matrix = transformation.perturbedMatrix(transform_matrix, -4)
-            #     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-            #     #y_ground_truth_new = torch.tensor(y_ground_truth_new.flatten())
-            #     #print('transformed: ', y_ground_truth_new)
-            #     old_y_ground_truth = y_ground_truth
-            #     #print(old_y_ground_truth)
-            #     for ind in range(len(y_ground_truth)):
-            #         y_ground_truth[ind] = round(y_ground_truth_new[ind], 2)
-            #         #y_ground_truth[ind] = y_ground_truth_new[ind]
+            if parameters["EnableNoising"]:
+                ground_truth_rand_values = torch.from_numpy(np.abs(np.random.normal(0, parameters["StdDevNoising"], len(y_ground_truth)))).float()
+                y_ground_truth.data += ground_truth_rand_values.data 
 
+            end = time.time()
+            total_time += end-start
+            total_n += 1
 
-                #print(y_ground_truth)
-                #print(y_ground_truth_new)
-                #print('---------------------------')
+            accurr += y_ground_truth.argmax() == label
+            basee += 1
 
-            #print('transformed inplace: ', y_ground_truth)
-
-            # if i == 0:
-                # print('sample 0 prediction ground truth: ', y_ground_truth)
-                # print(y_ground_truth)
             back_attack_mse, rand_mse = attack(y_ground_truth, sample, i)
             total_attack_mse += back_attack_mse
             total_rand_mse += rand_mse
@@ -390,4 +405,6 @@ if __name__=='__main__':
     logging.critical('-------------------------------------')
     logging.critical(f'Back propagation attack\t {trials}-Avg MSE:\t{back_prop_mse.avg:4f}')
     logging.critical(f'Random guess attack\t {trials}-Avg MSE:\t{random_guess_mse.avg:4f}')
+    logging.critical("Accuracy of the original model: %s", accurr/basee)
+    logging.critical("Total Time Per Data Point Prediction %s", total_time/total_n)
     print("See {} for more details.".format(parameters['logpath']))

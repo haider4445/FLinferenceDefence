@@ -1,0 +1,10 @@
+2022-10-25 01:48:56,329 - CRITICAL - dataset: C:\Haider\Research\InferenceAttacksDefenses\featureinference-vfl\datasets\news_cleaned.csv
+2022-10-25 01:48:56,331 - CRITICAL - number of target features: 29
+2022-10-25 01:48:56,334 - CRITICAL - max tree depth: 5
+2022-10-25 01:48:56,334 - CRITICAL - number of experimental trials: 2
+2022-10-25 01:48:59,604 - CRITICAL - Begin trials
+2022-10-25 01:48:59,606 - CRITICAL - -------------------------------------
+2022-10-25 01:48:59,607 - CRITICAL - Attack trial 1 / 2
+2022-10-25 01:49:03,211 - INFO - Decision Tree	 2-Avg train_perf:	0.441471, test_perf:	0.421567
+2022-10-25 01:49:03,211 - INFO - target feature indexes: [30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
+ 54 55 56 57 58]

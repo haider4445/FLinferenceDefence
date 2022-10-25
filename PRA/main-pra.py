@@ -12,6 +12,8 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, _tree
 from sklearn.tree import export_text
+import argparse
+from parseArguments import parser_func
 
 def currentDir():
     return os.path.dirname(os.path.realpath(__file__))
@@ -77,6 +79,31 @@ def load_from_csv(data_path, test_perc=0.2, pred_perc=0.2, delimiter=','):
 
     return X_train, y_train, X_test, y_test, X_pred, y_pred
 
+def getParameters():
+    parameters = vars(parser_func().parse_args())
+    print(parameters)
+
+    parameters['data_path'] = parentDir(currentDir()) + os.sep + "datasets" + os.sep + parameters['DataFile']
+    
+    logfile = parameters['LogFile']
+    index = logfile.rfind('.')
+    if index != -1:
+        logfile = logfile[:index]  + "_" + "unknown_" + str(parameters['num_target_features']) \
+                + "_depth_" + str(parameters['max_depth']) \
+                + "_expnum_" + str(parameters['num_exps']) \
+                + "_" + time.strftime("%Y%m%d%H%M%S") + logfile[index:]
+    else:
+        logfile = logfile + "_" + "unknown_" + str(parameters['num_target_features']) \
+                + "_depth_" + str(parameters['max_depth']) \
+                + "_expnum_" + str(parameters['num_exps']) \
+                + "_" + time.strftime("%Y%m%d%H%M%S") + ".log"
+        
+    parameters['logpath'] = currentDir() + os.sep + "log" + os.sep + logfile
+
+    return parameters
+    
+
+
 def readConfigFile(configfile):
     parameters = {}
     # read parameters from config file
@@ -140,7 +167,9 @@ if __name__=='__main__':
     
     # read parameters from config file
     configfile = 'config.ini'
-    parameters = readConfigFile(configfile)
+    #parameters = readConfigFile(configfile)
+
+    parameters = getParameters()
     
     trials = parameters['num_exps']
     
@@ -240,7 +269,14 @@ if __name__=='__main__':
         baseline_total_unknown_comp_num = 0
         baseline_correct_guess_comp_num = 0
         #debug_X_pred = X_pred[0:3, :]
+        total_time=0
+        total_n=0
+        accurr = 0.0
+        basee = 0.0
+        sample_no = 0
         for sample in X_pred:
+            y_true = y_pred[sample_no]
+            sample_no += 1
             # 5.1 First compute the ground-truth prediction, i.e., class
             # 5.2 Second restrict the candidate prediction paths given the ground-truth class
             # 5.3 Third scan each candidate prediction path, and check if it is still possible given adversary's features
@@ -250,8 +286,34 @@ if __name__=='__main__':
                 # record the correct guess number and the total target feature number
             sample_2d = np.reshape(sample, (-1, total_feature_num))
             # print('sample values: ', sample_2d)
+            start = time.time()
             label = clf.predict(sample_2d)
+            y_ground_truth = label
 
+            if parameters["EnablePREDVEL"]:
+                y_ground_truth_new = sample#.cpu().detach().numpy()
+                transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
+                pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
+                y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                sample.data = torch.from_numpy(y_ground_truth_new).float().data
+                #y_ground_truth = y_ground_truth + torch.min(y_ground_truth)
+                #y_ground_truth = y_ground_truth/sum(y_ground_truth)
+
+            if parameters['enableConfRound']:
+                n_digits = parameters['roundPrecision']
+                sample.data = (torch.round(sample * 10**n_digits) / (10**n_digits)).data 
+            
+
+            if parameters["EnableNoising"]:
+                ground_truth_rand_values = torch.from_numpy(np.abs(np.random.normal(0, parameters["StdDevNoising"], len(y_ground_truth)))).float()
+                y_ground_truth.data += ground_truth_rand_values.data 
+
+            end = time.time()
+            total_time += end-start
+            total_n += 1
+
+            accurr += int( label.argmax() == int(y_true) )
+            basee += 1
             # the first_filter is based on the predicted label
             first_filter = (full_leaf_labels == label[0]) + 0
             # print(first_filter)
@@ -367,6 +429,10 @@ if __name__=='__main__':
                     check_node_id_rg = parent_node_id_rg
 
         path_restriction_rate, random_guess_rate = None, None
+        logging.critical("Total Time Per Data Point Prediction %s", total_time/total_n)
+        logging.critical("Accuracy of the original model: %s", (accurr/basee))
+        logging.critical("-----------------------------------------------------")
+        
         logging.critical('total correct guess num: %d', correct_guess_comp_num)
         logging.critical('total unknown compare num: %d', total_unknown_comp_num)
         if total_unknown_comp_num != 0:
