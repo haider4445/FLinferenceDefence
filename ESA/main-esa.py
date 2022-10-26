@@ -326,8 +326,10 @@ if __name__=='__main__':
             input_sample.resize_((total_feature_num, 1))
             input_sample_adv = input_sample[:total_feature_num - parameters['num_target_features'], :]
             input_sample_target = input_sample[total_feature_num - parameters['num_target_features']: , :]
+            # logging.critical('ground_truth: %s', ground_truth)
             with torch.no_grad():
                 ground_truth_ln = torch.log(ground_truth)
+            # logging.critical('ground_truth_ln: %s', ground_truth_ln)
             ground_truth_ln_left = ground_truth_ln[:class_num-1]
             ground_truth_ln_right = ground_truth_ln[1:]
             ground_truth_ln_diff = ground_truth_ln_left - ground_truth_ln_right
@@ -352,7 +354,7 @@ if __name__=='__main__':
 
         total_attack_mse = 0.0
         total_rand_mse = 0.0
-        pred_interval = 1000
+        pred_interval = 1
         accurr = 0.0
         basee = 0.0
         total_time = 0
@@ -374,7 +376,11 @@ if __name__=='__main__':
 
             if parameters['enableConfRound']:
                 n_digits = parameters['roundPrecision']
-                y_ground_truth.data = (torch.round(y_ground_truth * 10**n_digits) / (10**n_digits)).data 
+                # logging.critical('y_ground_truth original: %s', y_ground_truth)
+                y_ground_truth_data = (torch.round(y_ground_truth * 10**n_digits) / (10**n_digits)).data
+                #apply for loop within array
+                y_ground_truth.data = torch.from_numpy(np.array([max(10**(-n_digits-2), value) for value in y_ground_truth_data])).float()
+                # logging.critical('y_ground_truth new: %s', y_ground_truth)
             
 
             if parameters["EnableNoising"]:
@@ -390,8 +396,9 @@ if __name__=='__main__':
 
             back_attack_mse, rand_mse = attack(y_ground_truth, sample, i)
             total_attack_mse += back_attack_mse
+            # logging.critical('[FARAZ] total attack mse is: %f', total_attack_mse)
             total_rand_mse += rand_mse
-            if i % pred_interval == 0 and i != 0:
+            if i % pred_interval == 0 and i != 0 or True:
                 logging.info('current index is: %d', i)
                 logging.info('current attack mse is: %f', total_attack_mse/i)
                 logging.info('current random mse is: %f', total_rand_mse/i)

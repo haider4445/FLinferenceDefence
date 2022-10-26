@@ -7,6 +7,7 @@ import logging
 import time
 import random
 import os
+import torch
 from numpy import genfromtxt
 from pathlib import Path
 from sklearn.model_selection import train_test_split
@@ -14,7 +15,7 @@ from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, _tree
 from sklearn.tree import export_text
 import argparse
 from parseArguments import parser_func
-import transformation
+
 
 def currentDir():
     return os.path.dirname(os.path.realpath(__file__))
@@ -289,31 +290,34 @@ if __name__=='__main__':
             # print('sample values: ', sample_2d)
             start = time.time()
             label = clf.predict(sample_2d)
-            y_ground_truth = label
 
             if parameters["EnablePREDVEL"]:
                 y_ground_truth_new = sample#.cpu().detach().numpy()
                 transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
                 pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
                 y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                sample.data = torch.from_numpy(y_ground_truth_new).float().data
+                sample = torch.from_numpy(y_ground_truth_new).float()
                 #y_ground_truth = y_ground_truth + torch.min(y_ground_truth)
                 #y_ground_truth = y_ground_truth/sum(y_ground_truth)
 
             if parameters['enableConfRound']:
                 n_digits = parameters['roundPrecision']
-                sample.data = (torch.round(sample * 10**n_digits) / (10**n_digits)).data 
+                sample = (torch.round(sample * 10**n_digits) / (10**n_digits)) 
             
 
             if parameters["EnableNoising"]:
-                ground_truth_rand_values = torch.from_numpy(np.abs(np.random.normal(0, parameters["StdDevNoising"], len(y_ground_truth)))).float()
-                y_ground_truth.data += ground_truth_rand_values.data 
+                ground_truth_rand_values = torch.from_numpy(np.abs(np.random.normal(0, parameters["StdDevNoising"], len(sample)))).float()
+                # print('type of ground_truth_rand_values: ', type(ground_truth_rand_values))
+                # print('type of sample.data: ', type(sample))
+                sample = sample + np.array(ground_truth_rand_values.data)
 
             end = time.time()
             total_time += end-start
             total_n += 1
 
-            accurr += int( label.argmax() == int(y_true) )
+            sample_2d = np.reshape(sample, (-1, total_feature_num))
+            label = clf.predict(sample_2d)
+            accurr += int( label[0] == int(y_true) )
             basee += 1
             # the first_filter is based on the predicted label
             first_filter = (full_leaf_labels == label[0]) + 0
