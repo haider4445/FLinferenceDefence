@@ -21,7 +21,7 @@ from datetime import datetime
 from pathlib import Path
 import argparse
 from parseArguments import parser_func
-from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN
+from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_NN_Dropout
 from models.AttackModels import Generator
 from utils.Trainers import GlobalClassifierTrainer, GeneratorTrainer
 from utils.VFLDatasets import ExperimentDataset, FakeDataset
@@ -209,7 +209,7 @@ def gridSearch(parameters, search_time = 4):
         testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
         predictloader = torch.utils.data.DataLoader(predictset, batch_size=64, shuffle=True)
 
-        classifierTrainer = GlobalClassifierTrainer(parameters['modelType'], g_input_dim, parameters['outputDim'], device)
+        classifierTrainer = GlobalClassifierTrainer(parameters['modelType'], g_input_dim, parameters['outputDim'], device, parameters['EnableDropout'])
         
         # train classifier and generator
         classifierTrainer.train(trainset, testset, trainloader, testloader, 10)
@@ -311,7 +311,7 @@ if __name__=='__main__':
         logging.info("len(testloader): %d", len(testloader))
         logging.info("len(predictloader): %d", len(predictloader))
         
-        classifierTrainer = GlobalClassifierTrainer(parameters['modelType'], g_input_dim, parameters['outputDim'], device)
+        classifierTrainer = GlobalClassifierTrainer(parameters['modelType'], g_input_dim, parameters['outputDim'], device, parameters['EnableDropout'])
         generatorTrainer = GeneratorTrainer(g_input_dim, g_output_dim, parameters, device)
         
         #trees_internal_node_features = None    # for computing cbr

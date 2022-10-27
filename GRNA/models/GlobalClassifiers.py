@@ -49,6 +49,26 @@ class GlobalPreModel_NN(nn.Module):
         
     def forward(self, x):
         return self.dense(x)
+
+class GlobalPreModel_NN_Dropout(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(GlobalPreModel_NN_Dropout, self).__init__()
+        self.dense = nn.Sequential(
+            nn.Linear(input_dim, 600),
+            nn.Dropout(),
+            nn.ReLU(),
+            nn.Linear(600, 300),
+            nn.Dropout(),
+            nn.ReLU(),
+            nn.Linear(300, 100),
+            nn.Dropout(),
+            nn.ReLU(),
+            nn.Linear(100, output_dim)
+        )
+      
+        
+    def forward(self, x):
+        return self.dense(x)
         
 class GlobalPreModel_RF():
     def __init__(self, trees=20, depth=2, r_state=0):

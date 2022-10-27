@@ -17,6 +17,7 @@ def parser_func():
 	parser.add_argument('--enableConfRound', type = bool, nargs = "?", default = False, help = 'Defense type')
 	parser.add_argument('--EnablePREDVEL', type = bool, nargs = "?", default = False, help = 'Defense type')
 	parser.add_argument('--EnableNoising', type = bool, nargs = "?", default = False, help = 'Defense type')
+	parser.add_argument('--EnableDropout', type = bool, nargs = "?", default = False, help = 'Defense Type')
 	
 	parser.add_argument('--roundPrecision', type = float, nargs = "?", default = 1, help = 'RoundingPrecision')
 	parser.add_argument('--StdDevNoising', type = float, nargs = "?", default = 0.1, help = 'StdDevNoising')

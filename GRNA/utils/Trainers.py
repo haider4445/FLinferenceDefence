@@ -20,7 +20,7 @@ import numpy as np
 import torchvision.models as tvmodels
 from datetime import datetime
 
-from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF
+from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF, GlobalPreModel_NN_Dropout
 from models.AttackModels import Generator, FakeRandomForest
 import transformation
 import time
@@ -29,7 +29,7 @@ def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
     
 class GlobalClassifierTrainer():
-    def __init__(self, modeltype, input_dim, output_dim, device):
+    def __init__(self, modeltype, input_dim, output_dim, device, EnableDropout):
         super().__init__()
         logging.critical("\n[FUNCTION]: Creating GlobalClassifierTrainer......")
         logging.critical("Creating a model for type %s", modeltype)
@@ -39,7 +39,11 @@ class GlobalClassifierTrainer():
             #assert output_dim == 2, "Output dimension of Logistic Regression should be 2!"
             self.model = GlobalPreModel_LR(input_dim, output_dim).to(device)
         elif modeltype == "NN":
-            self.model = GlobalPreModel_NN(input_dim, output_dim).to(device)
+            if EnableDropout:
+                print('Dropout Enabled')
+                self.model = GlobalPreModel_NN_Dropout(input_dim, output_dim).to(device)
+            else:
+                self.model = GlobalPreModel_NN(input_dim, output_dim).to(device)
         elif modeltype == "RF":
             self.modelRF = GlobalPreModel_RF(trees=100, depth=3, r_state=0)
             self.model = FakeRandomForest(input_dim, output_dim).to(device)
