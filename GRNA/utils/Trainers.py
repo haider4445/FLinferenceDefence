@@ -19,7 +19,7 @@ import torchvision.utils as vutils
 import numpy as np
 import torchvision.models as tvmodels
 from datetime import datetime
-from differential_privacy import dp_algorithms
+from diffprivlib.mechanisms import Gaussian
 
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF, GlobalPreModel_NN_Dropout
 from models.AttackModels import Generator, FakeRandomForest
