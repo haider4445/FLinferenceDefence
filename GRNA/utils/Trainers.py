@@ -358,10 +358,14 @@ class GeneratorTrainer():
                 if parameters["EnableDP"]:
                     epsilon = parameters["DPEpsilon"]
                     delta = parameters["DPDelta"]
+                    sensitivity = parameters["DPSensitivity"]
 
                     # use the Laplace mechanism to add noise to the values
                     values = ground_truth.cpu().detach().numpy().tolist()
-                    noisy_values = dp_algorithms.laplace_mechanism(values, epsilon, delta)
+                    sensitivity = sensitivity *(max(values) - min(values))
+                    gaussian = Gaussian(delta = delta, epsilon=epsilon, sensitivity=sensitivity)
+                    noisy_values = [gaussian.randomise(x) for x in values]
+
                     ground_truth.data = torch.from_numpy(np.array(noisy_values)).float().data
 
                 end = time.time()
