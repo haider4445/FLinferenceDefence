@@ -19,6 +19,7 @@ import torchvision.utils as vutils
 import numpy as np
 import torchvision.models as tvmodels
 from datetime import datetime
+from differential_privacy import dp_algorithms
 
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF, GlobalPreModel_NN_Dropout
 from models.AttackModels import Generator, FakeRandomForest
@@ -337,9 +338,13 @@ class GeneratorTrainer():
                 if parameters["EnablePREDVEL"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
-                    pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
-                    y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
-                    ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
+
+                    if not parameters["EnableDP"]:
+                        pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
+                        y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                    else:
+                        y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
+                    ground_truth.data = torch.from_numpy(y_ground_truth_new).float().data
 
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
@@ -349,6 +354,15 @@ class GeneratorTrainer():
                 if parameters["EnableNoising"]:
                     ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float().to(device)
                     ground_truth.data += ground_truth_rand_values.data 
+
+                if parameters["EnableDP"]:
+                    epsilon = parameters["DPEpsilon"]
+                    delta = parameters["DPDelta"]
+
+                    # use the Laplace mechanism to add noise to the values
+                    values = ground_truth.cpu().detach().numpy().tolist()
+                    noisy_values = dp_algorithms.laplace_mechanism(values, epsilon, delta)
+                    ground_truth.data = torch.from_numpy(np.array(noisy_values)).float().data
 
                 end = time.time()
                 total_time += end-start

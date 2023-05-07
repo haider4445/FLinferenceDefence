@@ -18,6 +18,11 @@ def parser_func():
 	parser.add_argument('--EnablePREDVEL', type = bool, nargs = "?", default = False, help = 'Defense type')
 	parser.add_argument('--EnableNoising', type = bool, nargs = "?", default = False, help = 'Defense type')
 	parser.add_argument('--EnableDropout', type = bool, nargs = "?", default = False, help = 'Defense Type')
+	parser.add_argument('--EnableDP', type = bool, nargs = "?", default = False, help = 'Defense Type')
+	
+
+	parser.add_argument('--DPEpsilon', type = float, nargs = "?", default = 1, help = 'Epsilon DP')
+	parser.add_argument('--DPDelta', type = float, nargs = "?", default = 1, help = 'Delta DP')
 	
 	parser.add_argument('--roundPrecision', type = float, nargs = "?", default = 1, help = 'RoundingPrecision')
 	parser.add_argument('--StdDevNoising', type = float, nargs = "?", default = 0.1, help = 'StdDevNoising')
