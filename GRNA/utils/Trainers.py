@@ -362,11 +362,14 @@ class GeneratorTrainer():
 
                     # use the Laplace mechanism to add noise to the values
                     values = ground_truth.cpu().detach().numpy().tolist()
-                    sensitivity = sensitivity *(max(values) - min(values))
+                    sensitivity = sensitivity *(np.max(np.array(values)) - np.max(np.array(values)))
                     gaussian = Gaussian(delta = delta, epsilon=epsilon, sensitivity=sensitivity)
-                    noisy_values = [gaussian.randomise(x) for x in values]
 
-                    ground_truth.data = torch.from_numpy(np.array(noisy_values)).float().data
+                    for i in range(len(values)):
+                        for j in range(len(values[i])):
+                            values[i][j] = gaussian.randomise(values[i][j])
+
+                    ground_truth.data = torch.from_numpy(np.array(values)).float().data
 
                 end = time.time()
                 total_time += end-start
