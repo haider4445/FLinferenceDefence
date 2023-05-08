@@ -344,7 +344,7 @@ class GeneratorTrainer():
                         y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
                     else:
                         y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
-                    ground_truth.data = torch.from_numpy(y_ground_truth_new).float().data
+                    ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
 
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
@@ -369,7 +369,7 @@ class GeneratorTrainer():
                         for j in range(len(values[i])):
                             values[i][j] = gaussian.randomise(values[i][j])
 
-                    ground_truth.data = torch.from_numpy(np.array(values)).float().data
+                    ground_truth = torch.from_numpy(np.array(values)).float().to(device)
 
                 end = time.time()
                 total_time += end-start
