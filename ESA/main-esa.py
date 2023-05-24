@@ -30,6 +30,8 @@ import transformation
 import argparse
 from parseArguments import parser_func
 
+from diffprivlib.mechanisms import Gaussian
+
 class AverageMeter(object):
     """Computes and stores the average and current value"""
 
@@ -326,10 +328,10 @@ if __name__=='__main__':
             input_sample.resize_((total_feature_num, 1))
             input_sample_adv = input_sample[:total_feature_num - parameters['num_target_features'], :]
             input_sample_target = input_sample[total_feature_num - parameters['num_target_features']: , :]
-            # logging.critical('ground_truth: %s', ground_truth)
+            #logging.critical('ground_truth: %s', ground_truth)
             with torch.no_grad():
                 ground_truth_ln = torch.log(ground_truth)
-            # logging.critical('ground_truth_ln: %s', ground_truth_ln)
+            #logging.critical('ground_truth_ln: %s', ground_truth_ln)
             ground_truth_ln_left = ground_truth_ln[:class_num-1]
             ground_truth_ln_right = ground_truth_ln[1:]
             ground_truth_ln_diff = ground_truth_ln_left - ground_truth_ln_right
@@ -359,18 +361,23 @@ if __name__=='__main__':
         basee = 0.0
         total_time = 0
         total_n = 0
+        delta = 0.01
         for i in range(pred_set_num):
             sample, label = pred_set.__getitem__(i)
             start = time.time()
             y_ground_truth = target_model(sample)
-
+            
 
             if parameters["EnablePREDVEL"]:
                 y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
                 transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
-                pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
-                y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                if not parameters["EnableDP"]:
+                    pert_matrix = transformation.perturbedMatrix(transform_matrix, parameters["perturbation_level"])
+                    y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
+                else:
+                    y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
                 y_ground_truth.data = torch.from_numpy(y_ground_truth_new).float().data
+                y_ground_truth += torch.abs(torch.min(y_ground_truth)) + delta
                 #y_ground_truth = y_ground_truth + torch.min(y_ground_truth)
                 #y_ground_truth = y_ground_truth/sum(y_ground_truth)
 
@@ -386,6 +393,21 @@ if __name__=='__main__':
             if parameters["EnableNoising"]:
                 ground_truth_rand_values = torch.from_numpy(np.abs(np.random.normal(0, parameters["StdDevNoising"], len(y_ground_truth)))).float()
                 y_ground_truth.data += ground_truth_rand_values.data 
+            
+            if parameters["EnableDP"]:
+                epsilon = parameters["DPEpsilon"]
+                delta = parameters["DPDelta"]
+                sensitivity = parameters["DPSensitivity"]
+
+                # use the Laplace mechanism to add noise to the values
+                values = y_ground_truth.data
+                sensitivity = sensitivity *(np.max(np.array(values)) - np.max(np.array(values)))
+                gaussian = Gaussian(delta = delta, epsilon=epsilon, sensitivity=sensitivity)
+
+                for i in range(len(values)):
+                    values[i] = gaussian.randomise(values[i].item())
+
+                y_ground_truth.data = torch.from_numpy(np.array(values)).float()
 
             end = time.time()
             total_time += end-start
