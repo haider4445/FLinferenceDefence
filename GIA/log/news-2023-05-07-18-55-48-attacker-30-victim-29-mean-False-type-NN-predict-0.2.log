@@ -1,0 +1,7 @@
+2023-05-07 18:55:48,098 - CRITICAL - 
+
+
+<<<<<<<-------------------------------NumOfFeaturesToRecover: 29------------------------------->>>>>>>
+2023-05-07 18:55:48,098 - CRITICAL - Running on device: cuda:0
+2023-05-07 18:55:48,098 - CRITICAL - Writing log to file: C:\Haider\Research\FL research\PETER\FLinferenceDefence\GRNA\log\news-2023-05-07-18-55-48-attacker-30-victim-29-mean-False-type-NN-predict-0.2.log
+2023-05-07 18:55:48,098 - CRITICAL - n_attacker = 30, n_victim = 29
