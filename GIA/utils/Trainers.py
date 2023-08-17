@@ -26,6 +26,7 @@ from models.AttackModels import Generator, FakeRandomForest
 import transformation
 import encryption
 import time
+import tenseal as ts
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -365,7 +366,6 @@ class GeneratorTrainer():
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
 
-                print(ground_truth)
                 if parameters["EnableEncryption"]:
                     ground_truth = encryption.encrypt_vector_n(ground_truth, context, n)
                     print('encrypted:', ground_truth)
