@@ -24,6 +24,7 @@ from diffprivlib.mechanisms import Gaussian
 from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, GlobalPreModel_RF, GlobalPreModel_NN_Dropout
 from models.AttackModels import Generator, FakeRandomForest
 import transformation
+import encryption
 import time
 
 def getTimeStamp():
@@ -300,6 +301,17 @@ class GeneratorTrainer():
         logging.critical('parameters[\'roundPrecision\'] = %s', parameters['roundPrecision'])
         total_time = 0
         total_n = 0
+
+        n = 8192
+        context = ts.context(
+                    ts.SCHEME_TYPE.CKKS,
+                    poly_modulus_degree=n,
+                    coeff_mod_bit_sizes=[40, 40, 40]
+                )
+        
+        context.generate_galois_keys()
+        context.global_scale = 2**20
+
         for epoch in range(epochs):
             accurate = 0.0
             train_accur_base = 0.0
@@ -352,6 +364,11 @@ class GeneratorTrainer():
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
+
+                print(ground_truth)
+                if parameters["EnableEncryption"]:
+                    ground_truth = encryption.encrypt_vector_n(ground_truth, context, n)
+                    print('encrypted:', ground_truth)
 
                 if parameters["EnableNoising"]:
                     ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float().to(device)

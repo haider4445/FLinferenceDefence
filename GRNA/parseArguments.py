@@ -19,8 +19,8 @@ def parser_func():
 	parser.add_argument('--EnableNoising', type = bool, nargs = "?", default = False, help = 'Defense type')
 	parser.add_argument('--EnableDropout', type = bool, nargs = "?", default = False, help = 'Defense Type')
 	parser.add_argument('--EnableDP', type = bool, nargs = "?", default = False, help = 'Defense Type')
+	parser.add_argument('--EnableEncryption', type = bool, nargs = "?", default = False, help = 'Defense Type')
 	
-
 	parser.add_argument('--DPEpsilon', type = float, nargs = "?", default = 1, help = 'Epsilon DP')
 	parser.add_argument('--DPDelta', type = float, nargs = "?", default = 1e-5, help = 'Delta DP')
 	parser.add_argument('--DPSensitivity', type = float, nargs = "?", default = 0.01, help = 'Sensitivity DP')
