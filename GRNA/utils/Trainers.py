@@ -25,6 +25,7 @@ from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, Globa
 from models.AttackModels import Generator, FakeRandomForest
 import transformation
 import time
+import encryption
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -350,6 +351,11 @@ class GeneratorTrainer():
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
+                print(ground_truth)
+                if parameters["EnableEncryption"]:
+                    ground_truth = encryption.encrypt_vector_n(ground_truth, context, n)
+                    print('encrypted:', ground_truth)
+
 
                 if parameters["EnableNoising"]:
                     ground_truth_rand_values = torch.from_numpy(np.random.normal(0, parameters["StdDevNoising"], (len(ground_truth),len(ground_truth[0])))).float().to(device)
