@@ -26,6 +26,7 @@ from models.AttackModels import Generator, FakeRandomForest
 import transformation
 import time
 import encryption
+import tenseal as ts
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -301,6 +302,16 @@ class GeneratorTrainer():
         logging.critical('parameters[\'roundPrecision\'] = %s', parameters['roundPrecision'])
         total_time = 0
         total_n = 0
+        n = 8192
+        context = ts.context(
+                    ts.SCHEME_TYPE.CKKS,
+                    poly_modulus_degree=n,
+                    coeff_mod_bit_sizes=[40, 40, 40]
+                )
+        
+        context.generate_galois_keys()
+        context.global_scale = 2**20
+
         for epoch in range(epochs):
             accurate = 0.0
             train_accur_base = 0.0
@@ -351,9 +362,9 @@ class GeneratorTrainer():
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
                 
-                print(ground_truth)
                 if parameters["EnableEncryption"]:
                     ground_truth = encryption.encrypt_vector_n(ground_truth, context, n)
+                    yfinal = yfinal.view(-1).cpu().detach().numpy().tolist()
                     print('encrypted:', ground_truth)
 
 
@@ -386,6 +397,7 @@ class GeneratorTrainer():
 
                 loss = ((yfinal - ground_truth.detach())**2).sum() + parameters['meanLambda'] * mean_loss + \
                      + parameters['unknownVarLambda'] * unknown_var_loss
+                
                     
                 loss.backward()
                 losses.append(loss.detach())

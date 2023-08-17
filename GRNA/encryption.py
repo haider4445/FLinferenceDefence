@@ -32,7 +32,6 @@ def encrypt_vector(weights, context):
     return Results(stop-start, res, shapes)
 
 def encrypt_vector_n(weights, context, n):
-	start = process_time()
 	res = []
 	shapes = weights.shape
 	# Do encryption
@@ -47,10 +46,9 @@ def encrypt_vector_n(weights, context, n):
 			broken.append(ts.ckks_vector(context, chunk.detach().numpy()))
 		res = broken
 	else:
-		res= ts.ckks_vector(context, v1)
+		res= ts.ckks_vector(context, v1.cpu().detach().numpy().tolist())
 	print(res)
-	stop = process_time()
-	return Results(stop-start, res, shapes)
+	return res
 
 def decrypt_vector(weights, shapes:Dict):
     start = process_time()
