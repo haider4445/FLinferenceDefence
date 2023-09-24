@@ -7,7 +7,7 @@ def parser_func():
 	parser.add_argument('--LogFile', type = str, nargs = "?", default = "news.log", help = 'log file path')
 	parser.add_argument('--n_attacker', type = int, nargs = "?", default = 30, help = 'attacker features')
 	parser.add_argument('--n_victim', type = int, nargs = "?", default = 29, help = 'other features')
-	parser.add_argument('--runtimes', type = int, nargs = "?", default = 1, help = 'running times')
+	parser.add_argument('--runtimes', type = int, nargs = "?", default = 2, help = 'running times')
 
 
 	parser.add_argument('--trainpart', type = float, nargs = "?", default = 0.6, help = 'train portion')
@@ -30,8 +30,8 @@ def parser_func():
 	parser.add_argument('--StdDevNoising', type = float, nargs = "?", default = 0.1, help = 'StdDevNoising')
 	
 
-	parser.add_argument('--epochsForAttack', type = int, nargs = "?", default = 10, help = 'Epochs')
-	parser.add_argument('--epochsForClassifier', type = int, nargs = "?", default = 10, help = 'Epochs')
+	parser.add_argument('--epochsForAttack', type = int, nargs = "?", default = 60, help = 'Epochs')
+	parser.add_argument('--epochsForClassifier', type = int, nargs = "?", default = 60, help = 'Epochs')
 
 	parser.add_argument('--meanLambda', type = float, nargs = "?", default = 1.2, help = 'KnownMeanLambda')
 	

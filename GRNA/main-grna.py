@@ -340,15 +340,15 @@ if __name__=='__main__':
     logging.critical("Mean random guess loss: %s", sum(random_loss)/runningtime)
 
     MSE = sum(model_loss)/len(model_loss)
-    random_MSE = sum(model_loss)/len(model_loss)
+    random_MSE = sum(random_loss)/runningtime
 
 
     output = parameters
     output['mse'] = MSE
     output['random_mse'] = random_MSE
-    output['accuracy'] = model_accuracy.item()
+    output['accuracy'] = 100*model_accuracy.item()
     output['total_running_time'] = runningtime
-    output['time_per_prediction'] = time_per_prediction
+    output['time_per_prediction'] = 1000*time_per_prediction
 
     df = pd.DataFrame([output])
 
