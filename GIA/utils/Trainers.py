@@ -27,6 +27,7 @@ import transformation
 import encryption
 import time
 import tenseal as ts
+import pandas as pd
 
 def getTimeStamp():
     return datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
@@ -411,7 +412,14 @@ class GeneratorTrainer():
                 logging.info("First two lines of yhat: %s", yhat[:2, :])
                 logging.critical("Accuracy of the original model: %s", accurr/basee)
                 logging.critical("Total Time Per Data Point Prediction %s", total_time/total_n)
-                
+
+                if epoch == epochs - 1:
+                    model_accuracy = accurr/basee
+                    time_per_prediction = total_time/total_n
+                    return model_accuracy, time_per_prediction
+        model_accuracy = accurr/basee
+        time_per_prediction = total_time/total_n
+        return model_accuracy, time_per_prediction        
 
 
     def test(self, predictloader, mean_feature):

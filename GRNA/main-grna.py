@@ -25,6 +25,7 @@ from models.GlobalClassifiers import GlobalPreModel_LR, GlobalPreModel_NN, Globa
 from models.AttackModels import Generator
 from utils.Trainers import GlobalClassifierTrainer, GeneratorTrainer
 from utils.VFLDatasets import ExperimentDataset, FakeDataset
+import pandas as pd
 
 def asMinutes(s):
     m = math.floor(s / 60)
@@ -324,7 +325,7 @@ if __name__=='__main__':
             fakedata = FakeDataset(len(expset)*10, g_input_dim, classifierTrainer.modelRF.rf)
             classifierTrainer.imitateRF(fakedata, epochs=5)
 
-        generatorTrainer.train(classifierTrainer, predictloader, expset.mean_attr)
+        model_accuracy, time_per_prediction = generatorTrainer.train(classifierTrainer, predictloader, expset.mean_attr)
         mean_model_loss, mean_guess_loss = generatorTrainer.test(predictloader, expset.mean_attr)
         #mean_model_loss, mean_guess_loss = generatorTrainer.test_rf(rf_predictloader, expset.mean_attr, trees_internal_node_features, trees_internal_node_thresholds)    # for computing cbr                                                         
         model_loss.append(mean_model_loss)
@@ -337,5 +338,31 @@ if __name__=='__main__':
     logging.critical("After run %d times -> ", runningtime)
     logging.critical("Mean generator loss: %s", sum(model_loss)/len(model_loss))
     logging.critical("Mean random guess loss: %s", sum(random_loss)/runningtime)
-        
-        
+
+    MSE = sum(model_loss)/len(model_loss)
+    random_MSE = sum(model_loss)/len(model_loss)
+
+
+    output = parameters
+    output['mse'] = MSE
+    output['random_mse'] = random_MSE
+    output['accuracy'] = model_accuracy.item()
+    output['total_running_time'] = runningtime
+    output['time_per_prediction'] = time_per_prediction
+
+    df = pd.DataFrame([output])
+
+    if os.path.exists(parameters['results_file_path']):
+        #fcntl.flock(file, fcntl.LOCK_EX)
+
+        df.to_csv(parameters['results_file_path'], mode='a', header=False, index=True)
+
+        #df_read = pd.read_csv(parameters['results_file_path'])
+        #df_read = df_read.append(pd.Series(output, index=df_read.columns), ignore_index=True)
+        #print(df_read)
+        #df_read.to_csv(parameters['results_file_path'], index = False)
+        #fcntl.flock(file, fcntl.LOCK_UN)
+    else:
+        #fcntl.flock(file, fcntl.LOCK_EX)
+        df.to_csv(parameters['results_file_path'])
+        #fcntl.flock(file, fcntl.LOCK_UN)
