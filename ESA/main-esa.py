@@ -31,6 +31,7 @@ import argparse
 from parseArguments import parser_func
 
 from diffprivlib.mechanisms import Gaussian
+import pandas as pd
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -437,3 +438,20 @@ if __name__=='__main__':
     logging.critical("Accuracy of the original model: %s", accurr/basee)
     logging.critical("Total Time Per Data Point Prediction %s", total_time/total_n)
     print("See {} for more details.".format(parameters['logpath']))
+
+
+
+    model_accuracy = accurr/basee
+
+    output = parameters
+    output['mse'] = back_prop_mse.avg.item()
+    output['random_mse'] = random_guess_mse.avg.item()
+    output['accuracy'] = 100*model_accuracy.item()
+    output['time_per_prediction'] = 1000*total_time/total_n
+
+    df = pd.DataFrame([output])
+
+    if os.path.exists(parameters['results_file_path']):
+        df.to_csv(parameters['results_file_path'], mode='a', header=False, index=True)
+    else:
+        df.to_csv(parameters['results_file_path'])

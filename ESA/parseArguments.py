@@ -50,4 +50,7 @@ def parser_func():
 	parser.add_argument('--criterion', type = str, nargs = "?", default = "gini", help = 'function to measure quality of split, must in {gini, entropy}')	
 	
 
+
+	parser.add_argument('--results_file_path', type = str, nargs = "?", default = "/content/drive/My Drive/results_output_ESA.csv", help = 'results output path')
+
 	return parser

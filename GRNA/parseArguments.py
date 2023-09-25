@@ -44,6 +44,6 @@ def parser_func():
 	parser.add_argument('--modelType', type = str, nargs = "?", default = "NN", help = 'ModeType')
 	
 
-	parser.add_argument('--results_file_path', type = str, nargs = "?", default = "/content/drive/My Drive/results_output.csv", help = 'results output path')
+	parser.add_argument('--results_file_path', type = str, nargs = "?", default = "/content/drive/My Drive/results_output_GRNA.csv", help = 'results output path')
 
 	return parser
