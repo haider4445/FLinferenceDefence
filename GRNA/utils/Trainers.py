@@ -348,6 +348,13 @@ class GeneratorTrainer():
                 start = time.time()
                 ground_truth = netR(x)
 
+
+                if parameters["EnablePREDVELRankingOnly"]:
+                    y_ground_truth_new = ground_truth.cpu().detach().numpy()
+                    ranking = np.argsort(np.argsort(y_ground_truth_new, axis=1), axis=1) + 1
+                    ranking = ranking/10
+                    ground_truth = torch.from_numpy(ranking).float().to(device)
+
                 if parameters["EnablePREDVEL"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
