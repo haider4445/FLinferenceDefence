@@ -369,6 +369,13 @@ if __name__=='__main__':
             y_ground_truth = target_model(sample)
             
 
+            if parameters["EnablePREDVELRankingOnly"]:
+                y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
+                ranking = np.argsort(np.argsort(y_ground_truth_new, axis=0), axis=0) + 1
+                ranking = ranking/10
+                y_ground_truth.data = torch.from_numpy(ranking).float().data
+                
+       
             if parameters["EnablePREDVEL"]:
                 y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
                 transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new))
