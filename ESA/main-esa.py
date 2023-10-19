@@ -363,11 +363,14 @@ if __name__=='__main__':
         total_time = 0
         total_n = 0
         delta = 0.01
+        transformation_matrix_available = False 
+        input_data = []
+        output_data = []
         for i in range(pred_set_num):
             sample, label = pred_set.__getitem__(i)
             start = time.time()
             y_ground_truth = target_model(sample)
-            
+            input_data.append(y_ground_truth.cpu().detach().numpy())
 
             if parameters["EnablePREDVELRankingOnly"]:
                 y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
@@ -375,6 +378,17 @@ if __name__=='__main__':
                 ranking = ranking/10
                 y_ground_truth.data = torch.from_numpy(ranking).float().data
                 
+                if parameters["EnableRPA"]:
+                    output_data.append(y_ground_truth.cpu().detach().numpy())
+                    if len(input_data) == 10:
+                        input_matrix = np.vstack(input_data)
+                        output_matrix = np.vstack(output_data)
+                        transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
+                        transformation_matrix_available = True  
+                    if transformation_matrix_available:
+                        reconstructed_ground_truth = np.dot(transformation_matrix_recons, y_ground_truth.cpu().detach().numpy())
+                        y_ground_truth.data = torch.from_numpy(reconstructed_ground_truth).float().data
+                        y_ground_truth += torch.abs(torch.min(y_ground_truth)) + delta
        
             if parameters["EnablePREDVEL"]:
                 y_ground_truth_new = y_ground_truth.cpu().detach().numpy()
@@ -384,10 +398,25 @@ if __name__=='__main__':
                     y_ground_truth_new = np.dot(y_ground_truth_new,pert_matrix)
                 else:
                     y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
+                
                 y_ground_truth.data = torch.from_numpy(y_ground_truth_new).float().data
                 y_ground_truth += torch.abs(torch.min(y_ground_truth)) + delta
+
+                
                 #y_ground_truth = y_ground_truth + torch.min(y_ground_truth)
                 #y_ground_truth = y_ground_truth/sum(y_ground_truth)
+
+                if parameters["EnableRPA"]:
+                    output_data.append(y_ground_truth.cpu().detach().numpy())
+                    if len(input_data) == 10:
+                        input_matrix = np.vstack(input_data)
+                        output_matrix = np.vstack(output_data)
+                        transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
+                        transformation_matrix_available = True  
+                    if transformation_matrix_available:
+                        reconstructed_ground_truth = np.dot(transformation_matrix_recons, y_ground_truth.cpu().detach().numpy())
+                        y_ground_truth.data = torch.from_numpy(reconstructed_ground_truth).float().data
+                        y_ground_truth += torch.abs(torch.min(y_ground_truth)) + delta
 
             if parameters['enableConfRound']:
                 n_digits = parameters['roundPrecision']

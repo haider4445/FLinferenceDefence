@@ -313,12 +313,17 @@ class GeneratorTrainer():
         context.generate_galois_keys()
         context.global_scale = 2**20
 
+
         for epoch in range(epochs):
             accurate = 0.0
             train_accur_base = 0.0
             losses = []
             accurr = 0.0
             basee = 0.0
+
+            transformation_matrix_available = False 
+            input_data = []
+            output_data = []
             for x, y in predictloader:
                 optimizerG.zero_grad()
                 x = x.to(device)
@@ -348,13 +353,23 @@ class GeneratorTrainer():
                 start = time.time()
                 ground_truth = netR(x)
 
-
+                input_data.append(ground_truth.cpu().detach().numpy())
                 if parameters["EnablePREDVELRankingOnly"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     ranking = np.argsort(np.argsort(y_ground_truth_new, axis=1), axis=1) + 1
                     ranking = ranking/10
                     ground_truth = torch.from_numpy(ranking).float().to(device)
-
+                    if parameters["EnableRPA"]:
+                        output_data.append(ground_truth.cpu().detach().numpy())
+                        if len(input_data) == 5:
+                            input_matrix = np.vstack(input_data)
+                            output_matrix = np.vstack(output_data)
+                            transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
+                            transformation_matrix_available = True  
+                        if transformation_matrix_available:
+                            reconstructed_ground_truth = np.dot(ground_truth.cpu().detach().numpy(),transformation_matrix_recons)
+                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
+ 
                 if parameters["EnablePREDVEL"]:
                     y_ground_truth_new = ground_truth.cpu().detach().numpy()
                     transform_matrix = transformation.generateTemplateMatrix(len(y_ground_truth_new[0]))
@@ -366,6 +381,18 @@ class GeneratorTrainer():
                         y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
                     ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
 
+
+                    if parameters["EnableRPA"]:
+                        output_data.append(ground_truth.cpu().detach().numpy())
+                        if len(input_data) == 1:
+                            input_matrix = np.vstack(input_data)
+                            output_matrix = np.vstack(output_data)
+                            transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
+                            transformation_matrix_available = True  
+                        if transformation_matrix_available:
+                            reconstructed_ground_truth = np.dot(ground_truth.cpu().detach().numpy(),transformation_matrix_recons)
+                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
+            
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 

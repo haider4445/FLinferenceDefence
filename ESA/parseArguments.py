@@ -20,6 +20,7 @@ def parser_func():
 	parser.add_argument('--EnableDP', type = bool, nargs = "?", default = False, help = 'Defense Type')
 	parser.add_argument('--EnablePREDVELRankingOnly', type = bool, nargs = "?", default = False, help = 'Defense type')
 
+	parser.add_argument('--EnableRPA', type = bool, nargs = "?", default = False, help = 'Attack type')
 
 	parser.add_argument('--DPEpsilon', type = float, nargs = "?", default = 1, help = 'Epsilon DP')
 	parser.add_argument('--DPDelta', type = float, nargs = "?", default = 1e-5, help = 'Delta DP')
