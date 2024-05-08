@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from scipy.linalg import qr
 
 
 def generateTemplateMatrix(k):
@@ -8,6 +9,15 @@ def generateTemplateMatrix(k):
 		matrix[i][i] -= 1
 
 	return matrix
+
+
+def generateRandomTemplateMatrix(k):
+
+	A = np.random.rand(k, k)
+	Q, _ = qr(A, mode='full')
+
+	return Q
+
 
 def perturbedMatrix(matrix, pert):
 

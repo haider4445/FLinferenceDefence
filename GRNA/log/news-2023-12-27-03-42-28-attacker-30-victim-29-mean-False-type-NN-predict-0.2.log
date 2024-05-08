@@ -1,0 +1,115 @@
+2023-12-27 03:42:28,842 - CRITICAL - 
+
+
+<<<<<<<-------------------------------NumOfFeaturesToRecover: 29------------------------------->>>>>>>
+2023-12-27 03:42:28,842 - CRITICAL - Running on device: cpu
+2023-12-27 03:42:28,843 - CRITICAL - Writing log to file: C:\Haider\Research\FL research\PETER\FLinferenceDefence\GRNA\log\news-2023-12-27-03-42-28-attacker-30-victim-29-mean-False-type-NN-predict-0.2.log
+2023-12-27 03:42:28,844 - CRITICAL - n_attacker = 30, n_victim = 29
+2023-12-27 03:42:28,849 - INFO - # By default, section names are case sensitive but keys are not
+# Config parsers do not guess datatypes of values in configuration files, always storing them internally as strings. 
+
+[DEFAULT]
+DataFile = news_cleaned.csv
+LogFile = news.log
+NumOfFeaturesOwnedByAttacker = 30
+NumOfFeaturesToRecover = 29
+RunningTimes = 2
+
+[DATASET]
+TrainPortion = 0.6
+TestPortion = 0.2
+PredictPortion = 0.2
+
+[DEFENCE]
+EnableConfidenceRounding = False
+RoundingPrecision = 1
+EnablePREDVEL = 1
+EnableDP = 1
+DPEpsilon = 1.0
+DPDelta = 1e-5
+EnableNoising = 0
+StdDevNoising = 0.1
+
+[GENERATOR]
+Epochs = 60
+EnableAttackerFeatures = True  
+EnableKnownMeanConstraint = False         
+KnownMeanLambda = 1.2
+UnknownVarLambda = 0.25
+
+# modeltype should be one of (LR, NN, RF)
+[CLASSIFIER]
+ModeType = NN
+# MUST SET: should be 2 for LR 
+ClassNum = 5
+Epochs = 60      
+
+    
+
+2023-12-27 03:42:28,849 - CRITICAL - 
+
+<----------------- Running count: 1 / 2 ----------------->
+
+
+2023-12-27 03:42:31,028 - CRITICAL - Dataset column permutation is: 
+ tensor([47,  1, 29,  3, 24, 18, 28, 14, 33, 11, 57,  5, 13,  6, 21, 49, 10,  8,
+        48, 20, 39, 26, 56,  0, 15,  2, 12,  7, 30, 25, 19, 43, 52, 16,  4, 17,
+        45, 46, 44, 58, 23, 32, 55, 41, 42, 35, 38, 22, 51, 50, 40, 34, 36, 37,
+        53, 31, 27,  9, 54])
+2023-12-27 03:42:31,041 - CRITICAL - Creating dataset, len(samples): 39644; positive labels sum: 34720
+2023-12-27 03:42:31,056 - CRITICAL - For dataset C:\Haider\Research\FL research\PETER\FLinferenceDefence\datasets\news_cleaned.csv, dataset length: 39644
+2023-12-27 03:42:31,056 - CRITICAL - 
+[FUNCTION]: Splitting dataset by getSplittedDataset()......
+2023-12-27 03:42:31,056 - INFO - Display first (x, y) pair of dataset:
+ tensor([7.6923e-01, 4.7619e-01, 5.8817e-04, 9.4664e-04, 2.7670e-04, 2.6455e-03,
+        5.8817e-04, 0.0000e+00, 0.0000e+00, 4.4444e-01, 0.0000e+00, 1.2544e-03,
+        1.0000e+00, 1.3158e-02, 0.0000e+00, 3.7864e-01, 5.8202e-01, 7.8125e-03,
+        2.3077e-01, 2.3349e-05, 4.0853e-01, 0.0000e+00, 4.0625e-01, 1.0000e+00,
+        0.0000e+00, 2.5844e-02, 0.0000e+00, 1.7241e-02, 1.0000e+00, 0.0000e+00,
+        0.0000e+00, 5.2162e-01, 6.5000e-01, 0.0000e+00, 9.5969e-04, 0.0000e+00,
+        2.9367e-01, 7.4074e-02, 4.3359e-01, 1.8750e-01, 0.0000e+00, 0.0000e+00,
+        5.0000e-01, 4.4534e-02, 4.3273e-02, 0.0000e+00, 5.3973e-01, 0.0000e+00,
+        7.0000e-01, 1.0000e-01, 4.3483e-02, 0.0000e+00, 0.0000e+00, 0.0000e+00,
+        4.0000e-01, 0.0000e+00, 5.8817e-04, 0.0000e+00, 8.0000e-01]), tensor(0.)
+2023-12-27 03:42:31,058 - INFO - Shape of (x, y): torch.Size([59]) torch.Size([])
+2023-12-27 03:42:31,060 - CRITICAL - len(trainset): 23786
+2023-12-27 03:42:31,062 - CRITICAL - len(testset): 7928
+2023-12-27 03:42:31,062 - CRITICAL - len(predictset): 7930
+2023-12-27 03:42:31,062 - INFO - len(trainloader): 372
+2023-12-27 03:42:31,062 - INFO - len(testloader): 124
+2023-12-27 03:42:31,062 - INFO - len(predictloader): 124
+2023-12-27 03:42:31,062 - CRITICAL - 
+[FUNCTION]: Creating GlobalClassifierTrainer......
+2023-12-27 03:42:31,063 - CRITICAL - Creating a model for type NN
+2023-12-27 03:42:31,071 - INFO - Structure of Global Classifier: GlobalPreModel_NN(
+  (dense): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=600, out_features=300, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=300, out_features=100, bias=True)
+    (5): ReLU()
+    (6): Linear(in_features=100, out_features=5, bias=True)
+  )
+)
+2023-12-27 03:42:31,071 - CRITICAL - 
+[FUNCTION]: Creating GeneratorTrainer......
+2023-12-27 03:42:31,071 - CRITICAL - Creating a generator
+2023-12-27 03:42:31,073 - INFO - Structure of Generator: Generator(
+  (net): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): LayerNorm((600,), eps=1e-05, elementwise_affine=True)
+    (2): ReLU()
+    (3): Linear(in_features=600, out_features=200, bias=True)
+    (4): LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+    (5): ReLU()
+    (6): Linear(in_features=200, out_features=100, bias=True)
+    (7): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+    (8): ReLU()
+    (9): Linear(in_features=100, out_features=29, bias=True)
+    (10): Sigmoid()
+  )
+)
+2023-12-27 03:42:31,073 - CRITICAL - 
+[FUNCTION]: Training global classifier NN......
+2023-12-27 03:42:32,766 - CRITICAL - In epoch 0, train accur is 0.42323216795921326, test accur is 0.4342835545539856.
