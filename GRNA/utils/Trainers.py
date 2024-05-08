@@ -393,31 +393,7 @@ class GeneratorTrainer():
                         y_ground_truth_new = np.dot(y_ground_truth_new,transform_matrix)
                     ground_truth = torch.from_numpy(y_ground_truth_new).float().to(device)
 
-                    
-
-                    if parameters["EnableRPA"]:
-                        output_data.append(ground_truth.cpu().detach().numpy())
-                        if len(input_data) == 1:
-                            input_matrix = np.vstack(input_data)
-                            output_matrix = np.vstack(output_data)
-                            transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
-                            transformation_matrix_available = True  
-                        if transformation_matrix_available:
-                            reconstructed_ground_truth = np.dot(ground_truth.cpu().detach().numpy(),transformation_matrix_recons)
-                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
-
-
-                    if parameters["EnablePEA"]:
-                        reconstructed_ground_truth = []
-                        ground_truth_PEA = ground_truth.cpu().detach().numpy()
-                        for ground_truth_PEA_i, ranking_i in zip(ground_truth_PEA, ranking):
-                            reconstructed_ground_truth.append(PETER_Equation_Attack(ground_truth_PEA_i, ranking_i, len(ground_truth_PEA_i), 1))
-                        if len(reconstructed_ground_truth[0]) != 0:
-                            reconstructed_ground_truth = np.array(reconstructed_ground_truth)
-                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
-                            print('reconstructed_ground_truth: ', ground_truth)
-                        else:
-                            ground_truth = torch.from_numpy(ground_truth_PEA).float().to(device)                        
+                                        
                 if enableConfRound:
                     n_digits = parameters['roundPrecision']
                     ground_truth = torch.round(ground_truth * 10**n_digits) / (10**n_digits) 
@@ -447,6 +423,32 @@ class GeneratorTrainer():
                             values[i][j] = gaussian.randomise(values[i][j])
 
                     ground_truth = torch.from_numpy(np.array(values)).float().to(device)
+
+                if parameters['EnablePREDVEL']:
+                    if parameters["EnableRPA"]:
+                        output_data.append(ground_truth.cpu().detach().numpy())
+                        if len(input_data) == 1:
+                            input_matrix = np.vstack(input_data)
+                            output_matrix = np.vstack(output_data)
+                            transformation_matrix_recons, residuals, rank, _ = np.linalg.lstsq(output_matrix, input_matrix, rcond=None)
+                            transformation_matrix_available = True  
+                        if transformation_matrix_available:
+                            reconstructed_ground_truth = np.dot(ground_truth.cpu().detach().numpy(),transformation_matrix_recons)
+                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
+
+
+                    if parameters["EnablePEA"]:
+                        reconstructed_ground_truth = []
+                        ground_truth_PEA = ground_truth.cpu().detach().numpy()
+                        for ground_truth_PEA_i, ranking_i in zip(ground_truth_PEA, ranking):
+                            reconstructed_ground_truth.append(PETER_Equation_Attack(ground_truth_PEA_i, ranking_i, len(ground_truth_PEA_i), 1))
+                        if len(reconstructed_ground_truth[0]) != 0:
+                            reconstructed_ground_truth = np.array(reconstructed_ground_truth)
+                            ground_truth = torch.from_numpy(reconstructed_ground_truth).float().to(device)
+                            print('reconstructed_ground_truth: ', ground_truth)
+                        else:
+                            ground_truth = torch.from_numpy(ground_truth_PEA).float().to(device)    
+
 
                 end = time.time()
                 total_time += end-start

@@ -1,0 +1,183 @@
+2024-05-08 16:24:05,703 - CRITICAL - 
+
+
+<<<<<<<-------------------------------NumOfFeaturesToRecover: 29------------------------------->>>>>>>
+2024-05-08 16:24:05,703 - CRITICAL - Running on device: cpu
+2024-05-08 16:24:05,703 - CRITICAL - Writing log to file: C:\Haider\Research\FL research\PETER\FLinferenceDefence\GRNA\log\news-2024-05-08-16-24-05-attacker-30-victim-29-mean-False-type-NN-predict-0.2.log
+2024-05-08 16:24:05,703 - CRITICAL - n_attacker = 30, n_victim = 29
+2024-05-08 16:24:05,703 - INFO - # By default, section names are case sensitive but keys are not
+# Config parsers do not guess datatypes of values in configuration files, always storing them internally as strings. 
+
+[DEFAULT]
+DataFile = news_cleaned.csv
+LogFile = news.log
+NumOfFeaturesOwnedByAttacker = 30
+NumOfFeaturesToRecover = 29
+RunningTimes = 2
+
+[DATASET]
+TrainPortion = 0.6
+TestPortion = 0.2
+PredictPortion = 0.2
+
+[DEFENCE]
+EnableConfidenceRounding = False
+RoundingPrecision = 1
+EnablePREDVEL = 1
+EnableDP = 1
+DPEpsilon = 1.0
+DPDelta = 1e-5
+EnableNoising = 0
+StdDevNoising = 0.1
+
+[GENERATOR]
+Epochs = 60
+EnableAttackerFeatures = True  
+EnableKnownMeanConstraint = False         
+KnownMeanLambda = 1.2
+UnknownVarLambda = 0.25
+
+# modeltype should be one of (LR, NN, RF)
+[CLASSIFIER]
+ModeType = NN
+# MUST SET: should be 2 for LR 
+ClassNum = 5
+Epochs = 60      
+
+    
+
+2024-05-08 16:24:05,703 - CRITICAL - 
+
+<----------------- Running count: 1 / 2 ----------------->
+
+
+2024-05-08 16:24:07,899 - CRITICAL - Dataset column permutation is: 
+ tensor([47,  1, 29,  3, 24, 18, 28, 14, 33, 11, 57,  5, 13,  6, 21, 49, 10,  8,
+        48, 20, 39, 26, 56,  0, 15,  2, 12,  7, 30, 25, 19, 43, 52, 16,  4, 17,
+        45, 46, 44, 58, 23, 32, 55, 41, 42, 35, 38, 22, 51, 50, 40, 34, 36, 37,
+        53, 31, 27,  9, 54])
+2024-05-08 16:24:07,915 - CRITICAL - Creating dataset, len(samples): 39644; positive labels sum: 34720
+2024-05-08 16:24:07,931 - CRITICAL - For dataset C:\Haider\Research\FL research\PETER\FLinferenceDefence\datasets\news_cleaned.csv, dataset length: 39644
+2024-05-08 16:24:07,931 - CRITICAL - 
+[FUNCTION]: Splitting dataset by getSplittedDataset()......
+2024-05-08 16:24:07,931 - INFO - Display first (x, y) pair of dataset:
+ tensor([7.6923e-01, 4.7619e-01, 5.8817e-04, 9.4664e-04, 2.7670e-04, 2.6455e-03,
+        5.8817e-04, 0.0000e+00, 0.0000e+00, 4.4444e-01, 0.0000e+00, 1.2544e-03,
+        1.0000e+00, 1.3158e-02, 0.0000e+00, 3.7864e-01, 5.8202e-01, 7.8125e-03,
+        2.3077e-01, 2.3349e-05, 4.0853e-01, 0.0000e+00, 4.0625e-01, 1.0000e+00,
+        0.0000e+00, 2.5844e-02, 0.0000e+00, 1.7241e-02, 1.0000e+00, 0.0000e+00,
+        0.0000e+00, 5.2162e-01, 6.5000e-01, 0.0000e+00, 9.5969e-04, 0.0000e+00,
+        2.9367e-01, 7.4074e-02, 4.3359e-01, 1.8750e-01, 0.0000e+00, 0.0000e+00,
+        5.0000e-01, 4.4534e-02, 4.3273e-02, 0.0000e+00, 5.3973e-01, 0.0000e+00,
+        7.0000e-01, 1.0000e-01, 4.3483e-02, 0.0000e+00, 0.0000e+00, 0.0000e+00,
+        4.0000e-01, 0.0000e+00, 5.8817e-04, 0.0000e+00, 8.0000e-01]), tensor(0.)
+2024-05-08 16:24:07,947 - INFO - Shape of (x, y): torch.Size([59]) torch.Size([])
+2024-05-08 16:24:07,947 - CRITICAL - len(trainset): 23786
+2024-05-08 16:24:07,947 - CRITICAL - len(testset): 7928
+2024-05-08 16:24:07,947 - CRITICAL - len(predictset): 7930
+2024-05-08 16:24:07,947 - INFO - len(trainloader): 372
+2024-05-08 16:24:07,947 - INFO - len(testloader): 124
+2024-05-08 16:24:07,947 - INFO - len(predictloader): 124
+2024-05-08 16:24:07,947 - CRITICAL - 
+[FUNCTION]: Creating GlobalClassifierTrainer......
+2024-05-08 16:24:07,947 - CRITICAL - Creating a model for type NN
+2024-05-08 16:24:07,947 - INFO - Structure of Global Classifier: GlobalPreModel_NN(
+  (dense): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=600, out_features=300, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=300, out_features=100, bias=True)
+    (5): ReLU()
+    (6): Linear(in_features=100, out_features=5, bias=True)
+  )
+)
+2024-05-08 16:24:07,947 - CRITICAL - 
+[FUNCTION]: Creating GeneratorTrainer......
+2024-05-08 16:24:07,947 - CRITICAL - Creating a generator
+2024-05-08 16:24:07,962 - INFO - Structure of Generator: Generator(
+  (net): Sequential(
+    (0): Linear(in_features=59, out_features=600, bias=True)
+    (1): LayerNorm((600,), eps=1e-05, elementwise_affine=True)
+    (2): ReLU()
+    (3): Linear(in_features=600, out_features=200, bias=True)
+    (4): LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+    (5): ReLU()
+    (6): Linear(in_features=200, out_features=100, bias=True)
+    (7): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+    (8): ReLU()
+    (9): Linear(in_features=100, out_features=29, bias=True)
+    (10): Sigmoid()
+  )
+)
+2024-05-08 16:24:07,962 - CRITICAL - 
+[FUNCTION]: Training global classifier NN......
+2024-05-08 16:24:09,697 - CRITICAL - In epoch 0, train accur is 0.42323216795921326, test accur is 0.4342835545539856.
+2024-05-08 16:24:34,424 - CRITICAL - In epoch 12, train accur is 0.4587993025779724, test accur is 0.4318869709968567.
+2024-05-08 16:24:58,908 - CRITICAL - In epoch 24, train accur is 0.5511645674705505, test accur is 0.4157416820526123.
+2024-05-08 16:25:23,634 - CRITICAL - In epoch 36, train accur is 0.7283696532249451, test accur is 0.35607972741127014.
+2024-05-08 16:25:48,779 - CRITICAL - In epoch 48, train accur is 0.8582359552383423, test accur is 0.3464934527873993.
+2024-05-08 16:26:13,015 - CRITICAL - In epoch 59, train accur is 0.9120070338249207, test accur is 0.33640262484550476.
+2024-05-08 16:26:13,015 - CRITICAL - 
+[FUNCTION]: Training Generator......
+2024-05-08 16:26:13,015 - CRITICAL - Enable Attacker Features
+2024-05-08 16:26:13,015 - CRITICAL - Disable Mean Constraint
+2024-05-08 16:26:13,015 - CRITICAL - parameters['unknownVarLambda'] = 0.25
+2024-05-08 16:26:13,015 - CRITICAL - Disable Confidence Rounding
+2024-05-08 16:26:13,015 - CRITICAL - parameters['roundPrecision'] = 1
+2024-05-08 16:26:15,294 - INFO - >>>>>>>>>>>>>>>>>
+2024-05-08 16:26:15,294 - CRITICAL - In epoch 0, loss is tensor(25161.9922)
+2024-05-08 16:26:15,294 - INFO - L2 norm of yhat: tensor(382.3361, grad_fn=<SumBackward0>)
+2024-05-08 16:26:15,294 - INFO - L2 norm of original vector: tensor(332.1916)
+2024-05-08 16:26:15,294 - INFO - First two lines of yhat: tensor([[0.3303, 0.4481, 0.7589, 0.3664, 0.3527, 0.3578, 0.4592, 0.4704, 0.5583,
+         0.2917, 0.5175, 0.4277, 0.4409, 0.6136, 0.4664, 0.4746, 0.3438, 0.6087,
+         0.7471, 0.1962, 0.4012, 0.4419, 0.3851, 0.2585, 0.6190, 0.5549, 0.1351,
+         0.2162, 0.6906],
+        [0.3505, 0.4774, 0.8210, 0.3247, 0.2860, 0.3394, 0.4721, 0.5094, 0.5348,
+         0.2947, 0.4948, 0.4550, 0.4663, 0.6740, 0.4862, 0.5359, 0.3341, 0.6170,
+         0.6786, 0.2396, 0.4620, 0.5744, 0.3862, 0.2956, 0.6477, 0.5659, 0.1363,
+         0.2034, 0.6809]], grad_fn=<SliceBackward0>)
+2024-05-08 16:26:15,309 - CRITICAL - Accuracy of the original model: tensor(0.3404)
+2024-05-08 16:26:15,309 - CRITICAL - Total Time Per Data Point Prediction 0.006025212426339427
+2024-05-08 16:26:42,167 - INFO - >>>>>>>>>>>>>>>>>
+2024-05-08 16:26:42,167 - CRITICAL - In epoch 12, loss is tensor(15648.9131)
+2024-05-08 16:26:42,167 - INFO - L2 norm of yhat: tensor(342.3314, grad_fn=<SumBackward0>)
+2024-05-08 16:26:42,167 - INFO - L2 norm of original vector: tensor(350.9850)
+2024-05-08 16:26:42,167 - INFO - First two lines of yhat: tensor([[0.2355, 0.3476, 0.8845, 0.2075, 0.1068, 0.0623, 0.3460, 0.2091, 0.6778,
+         0.4392, 0.2905, 0.1774, 0.3210, 0.5594, 0.3684, 0.4347, 0.3092, 0.8739,
+         0.8729, 0.1095, 0.2344, 0.4724, 0.2362, 0.1606, 0.7692, 0.5710, 0.0433,
+         0.0882, 0.7528],
+        [0.2714, 0.3146, 0.8791, 0.1677, 0.1047, 0.0629, 0.3259, 0.2280, 0.7032,
+         0.4066, 0.3107, 0.2067, 0.3575, 0.5129, 0.4302, 0.4309, 0.3305, 0.8733,
+         0.8990, 0.1168, 0.1889, 0.4058, 0.2586, 0.1534, 0.8045, 0.6099, 0.0477,
+         0.0850, 0.7981]], grad_fn=<SliceBackward0>)
+2024-05-08 16:26:42,183 - CRITICAL - Accuracy of the original model: tensor(0.3404)
+2024-05-08 16:26:42,183 - CRITICAL - Total Time Per Data Point Prediction 0.007294524692128373
+2024-05-08 16:27:06,866 - INFO - >>>>>>>>>>>>>>>>>
+2024-05-08 16:27:06,866 - CRITICAL - In epoch 24, loss is tensor(14712.7061)
+2024-05-08 16:27:06,866 - INFO - L2 norm of yhat: tensor(331.7394, grad_fn=<SumBackward0>)
+2024-05-08 16:27:06,866 - INFO - L2 norm of original vector: tensor(345.1473)
+2024-05-08 16:27:06,882 - INFO - First two lines of yhat: tensor([[0.1358, 0.3401, 0.7609, 0.1212, 0.0431, 0.0367, 0.2457, 0.0862, 0.4876,
+         0.5209, 0.2850, 0.2025, 0.1114, 0.6139, 0.4547, 0.3700, 0.2038, 0.9291,
+         0.8480, 0.0769, 0.0902, 0.4765, 0.2589, 0.0938, 0.7196, 0.3349, 0.0819,
+         0.0755, 0.8321],
+        [0.1663, 0.3921, 0.7647, 0.1255, 0.0356, 0.0225, 0.3130, 0.1110, 0.5150,
+         0.4958, 0.2922, 0.1987, 0.1373, 0.4692, 0.4595, 0.3562, 0.2097, 0.9353,
+         0.8441, 0.0688, 0.1232, 0.4235, 0.2076, 0.1071, 0.7336, 0.4906, 0.0799,
+         0.0573, 0.8025]], grad_fn=<SliceBackward0>)
+2024-05-08 16:27:06,882 - CRITICAL - Accuracy of the original model: tensor(0.3404)
+2024-05-08 16:27:06,882 - CRITICAL - Total Time Per Data Point Prediction 0.006916860457389586
+2024-05-08 16:27:33,140 - INFO - >>>>>>>>>>>>>>>>>
+2024-05-08 16:27:33,140 - CRITICAL - In epoch 36, loss is tensor(13928.0127)
+2024-05-08 16:27:33,140 - INFO - L2 norm of yhat: tensor(300.6150, grad_fn=<SumBackward0>)
+2024-05-08 16:27:33,140 - INFO - L2 norm of original vector: tensor(345.1501)
+2024-05-08 16:27:33,140 - INFO - First two lines of yhat: tensor([[0.1690, 0.3109, 0.8032, 0.1233, 0.0315, 0.0945, 0.2910, 0.0698, 0.5282,
+         0.4370, 0.2991, 0.3939, 0.2561, 0.6613, 0.4025, 0.1204, 0.1418, 0.9348,
+         0.7673, 0.2679, 0.0869, 0.3281, 0.2219, 0.0263, 0.6341, 0.2670, 0.0429,
+         0.0481, 0.8364],
+        [0.0901, 0.3821, 0.8010, 0.0953, 0.0223, 0.0248, 0.3998, 0.1146, 0.6117,
+         0.4893, 0.1418, 0.2009, 0.1840, 0.5851, 0.2022, 0.3138, 0.2095, 0.9198,
+         0.6998, 0.1032, 0.2146, 0.5634, 0.0835, 0.0583, 0.5116, 0.3705, 0.0440,
+         0.0341, 0.7250]], grad_fn=<SliceBackward0>)
+2024-05-08 16:27:33,155 - CRITICAL - Accuracy of the original model: tensor(0.3404)
+2024-05-08 16:27:33,155 - CRITICAL - Total Time Per Data Point Prediction 0.006841711563552683
